@@ -1,12 +1,11 @@
 from prompts import SYSTEM_PROMPT 
 from ollama import chat
 from config import LLM
-from a_timer import timer
-
-@timer
+from time import perf_counter
 def generate_answer(query: str, retrieved_chunks : list[dict]) -> str:
+    start = perf_counter()
     context = "\n\n---\n\n".join(c["content"] for c in retrieved_chunks)
-    response = chat(
+    stream = chat(
         model= LLM,
         messages= [
             {"role":"system", "content":SYSTEM_PROMPT},
@@ -15,6 +14,17 @@ def generate_answer(query: str, retrieved_chunks : list[dict]) -> str:
         Question: {query}
         Answer"""},
         ],
+        stream = True,
     )
-
-    return response.message.content
+    first_token_time = None
+    answer = ""
+    for chunk in stream:
+        if first_token_time is None:
+            first_token_time = perf_counter()
+        token = chunk["message"]["content"]
+        answer += token
+        print(token , end = "", flush = True)
+    end_token_time = perf_counter()
+    print(f"\nTotal time taken for the whole answer : {end_token_time - start : .4f} sec")
+    print(f"Time taken for the first token : {first_token_time - start : .4f} sec")
+    print(f"Time taken for the streaming : {end_token_time - first_token_time : .4f} sec")

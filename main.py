@@ -28,4 +28,3 @@ query = input("Enter your Query:\n")
 results = retriever.retrieve(query)
 
 answer = generate_answer(query, results)
-print(answer)
