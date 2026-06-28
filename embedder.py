@@ -1,13 +1,13 @@
 from sentence_transformers import SentenceTransformer
-from a_timer import timer
+from utils import timer
 from chunk_type import Chunk
-
+import torch
 
 class Embedder:
     def __init__(self, model_name : str, token : str):
         self.model = SentenceTransformer(model_name, token)
     @timer
-    def embed_chunks(self , metadata: list[Chunk] , batch_size: int = 32 ) -> list[Chunk]:
+    def embed_chunks(self , metadata: list[Chunk] , batch_size: int = 32 ) -> torch.tensor:
         if not metadata:
             raise ValueError("Given metadata is empty!")
         all_embeddings = []

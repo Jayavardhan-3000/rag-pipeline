@@ -2,7 +2,7 @@ import faiss
 from chunk_type import Chunk
 import numpy as np
 from embedder import Embedder
-from a_timer import timer
+from utils import timer
 
 class Retriever():
     def __init__(self, embedder : Embedder, index : faiss.IndexFlatIP, chunks : list[Chunk], top_k : int):

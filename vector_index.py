@@ -5,7 +5,7 @@ import json
 import faiss
 import logging
 import torch
-from a_timer import timer
+from utils import timer
 
 @timer
 def vector_store_exists(save_dir: str = "./vector_store") -> bool:

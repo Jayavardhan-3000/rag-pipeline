@@ -1,3 +1,5 @@
-sentence-transformers>=5.1.0
-numpy
-ollama
+sentence-transformers==3.4.1
+faiss-cpu==1.9.0
+numpy==1.26.4
+torch==2.6.0
+ollama==0.4.7
