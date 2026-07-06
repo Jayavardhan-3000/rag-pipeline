@@ -1,10 +1,12 @@
-from typing import TypedDict,NotRequired
+from dataclasses import dataclass
 
-class Chunk(TypedDict): #tells editor what it is expecting and also it gives warning, if gave wrong data type to an index or auto converts it
-    chunk_id: str
-    chunk_index: int
-    doc_id: str
-    source : str
-    word_count: int
-    embedding: NotRequired[list[float]]
-    content: str
+@dataclass
+class Chunk: #tells editor what it is expecting and also it gives warning, if gave wrong data type to an index or auto converts it
+    Content : str
+    Source : str
+    Title : str
+    Heading_Path : list[str]
+    page: int
+    contains_image : bool
+    contains_table : bool
+    contains_formulas : bool
