@@ -7,7 +7,6 @@ from recursive_split import recursive_split
 def build_content(blocks):
     return "\n\n".join(block.content for block in blocks)
 
-
 def create_chunk(section, blocks, start_index, end_index):
     chunk = Chunk(
         content=build_content(blocks),
@@ -20,7 +19,6 @@ def create_chunk(section, blocks, start_index, end_index):
         contains_formulas=section.contains_formulas,
         mermaid_diagrams=[]
     )
-
     for diagram in section.mermaid_diagrams:
         if start_index <= diagram.block_index < end_index:
             chunk.contains_image = True
@@ -30,9 +28,7 @@ def create_chunk(section, blocks, start_index, end_index):
                     content=diagram.content
                 )
             )
-
     return chunk
-
 
 def pack_section(
     section: Section,
@@ -42,7 +38,6 @@ def pack_section(
 ):
     expanded_blocks = []
     mapping = []
-
     for index, block in enumerate(section.blocks):
         if token_counter(block.content) <= max_tokens:
             expanded_blocks.append(block)
@@ -53,10 +48,8 @@ def pack_section(
                 token_counter,
                 max_tokens
             )
-
             expanded_blocks.extend(split_blocks)
             mapping.extend([index] * len(split_blocks))
-
     chunks = []
 
     current_blocks = []
@@ -83,7 +76,6 @@ def pack_section(
         current_blocks.append(block)
         current_mapping.append(original_index)
         current_tokens += block_tokens
-
     if current_blocks:
         chunks.append(
             create_chunk(
@@ -114,5 +106,4 @@ def pack_sections(
                 max_tokens
             )
         )
-
     return chunks
