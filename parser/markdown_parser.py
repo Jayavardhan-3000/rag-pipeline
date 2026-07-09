@@ -8,7 +8,6 @@ from parsed_page import ParsedPage
 
 load_dotenv()
 
-    
 class MarkdownParser:
     """
     This Class connects to the LlamaIndex Parser and parses down all the documents from the directory

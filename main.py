@@ -12,19 +12,15 @@ load_dotenv()
 
 hf_token = os.getenv("HF_TOKEN")
 Parser_API_Key = os.getenv("LLAMA_CLOUD_API_KEY")
+embedder = Embedder(model_name = MODEL_NAME, token = hf_token)
+parser = markdown_parser.Markdown_parser(SOURCES_PATH, Parser_API_Key)
 
 async def main():
-    parser = markdown_parser.MarkdownParser("sources")
-    documents = await parser.parse_directory()
-    parser = markdown_parser.Markdown_parser(SOURCES_PATH, Parser_API_Key)
-    embedder = Embedder(model_name = MODEL_NAME, token = hf_token)
     if vector_store_exists():
         index, chunks = load_index_and_metadata()
     else:
         parser = markdown_parser.MarkdownParser("sources")
         documents = await parser.parse_directory()
-        parser = markdown_parser.Markdown_parser(SOURCES_PATH, Parser_API_Key)
-        embedder = Embedder(model_name = MODEL_NAME, token = hf_token)
         chunks = chunking(documents)
         print("Number of chunks:", len(chunks))
         print(chunks[:2])

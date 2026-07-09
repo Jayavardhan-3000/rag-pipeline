@@ -6,7 +6,6 @@ import httpx
 def generate_answer(query: str, retrieved_chunks : list[dict]) -> str:
     start = perf_counter()
     context = "\n\n---\n\n".join(c["content"] for c in retrieved_chunks)
-    
     try:
         stream = chat(
             model=LLM,
