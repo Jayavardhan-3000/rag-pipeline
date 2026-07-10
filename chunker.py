@@ -1,42 +1,106 @@
-from pathlib import Path #Using it so I can access all the required format files, can't be done context managers
-import hashlib #Need this to maintain idempotency, similar unique_id for similar chunks, gonna use in metadata
-import logging
-from chunk_type import Chunk
-from utils import timer
+import re
+from copy import deepcopy
 
-@timer
-def chunking(directory : str, chunk_size : int = 300  , overlap_by :int = 30 ) -> list[Chunk]: #Type annotations, syntax- parameter: type = default
-    if overlap_by >= chunk_size:
-        raise ValueError("overlap_by must be smaller than chunk_size")
-    metadata : list[Chunk] = []
-    print("Directory:", directory)
-    print("Files found:", list(Path(directory).glob("*.txt")))
-    for path in sorted(Path(directory).glob("*.txt")):#Iterate through the iterator
-        with path.open("r", encoding = "utf-8") as file: #Opening the file via context manager 
-            text = file.read()
-            words = text.split()
-            step = chunk_size - overlap_by #We need to consider the overlap right! so 800 - 150 = 650
-            for idx, start in enumerate(range(0,len(words),step),start = 1):#0 to 800, 650 to(+800) 1450, 1300 to 2100, we are overlapping by 150 words
-                chunk_words = words[start:start+chunk_size]
-                chunk = " ".join(chunk_words)
-                if chunk:
-                    #0 to 800, 650 to(+800) 1450, 1300 to 2100, we are overlapping by 150 words
-                    hashid = hashlib.sha256(chunk.encode()).hexdigest()[:8] #refer to top imports, sha256 is an algorithm,
-                    #parameter should be encoded into bytes, 
-                    #hexdigest to covert raw data which was returned into hexadecimal format, atleast we can read it
-                    unq_id = f"{path.stem}_{idx}_{hashid}"
-                    metadata.append({
-                        "chunk_id" : unq_id,
-                        "chunk_index": idx,
-                        "doc_id"   : path.stem,
-                        "source"   : str(path),
-                        "word_count": len(chunk_words),
-                        "content"  : chunk
-                    })
-    logging.info(f"Loaded all {len(metadata)} from {directory}")
-    print("Metadata length:", len(metadata))
-    if not metadata:
-        raise ValueError(
-        f"No chunks generated. Check directory '{directory}' and ensure .txt files contain text."
-    )
-    return metadata
+from parser.parsed_page import ParsedPage
+from chunk_type import Chunk, MermaidDiagram
+
+Heading_pattern = re.compile(r"^(#{1,6})\s+(.*)$")
+
+def minify_table(lines: list[str]) -> str:
+    return "".join(line.strip() for line in lines)
+
+def chunker(data: dict[str, list[ParsedPage]]) -> list[Chunk]:
+    sections = []
+    for source, pages in data.items():
+        heading_path = []
+        current_chunk = None
+        current_content = []
+        for page in pages:
+            lines = page.markdown.splitlines()
+            i = 0
+            while i < len(lines):
+                line = lines[i]
+                matched = Heading_pattern.match(line)
+                if matched:
+                    if current_chunk:
+                        current_chunk.Content = "\n".join(current_content)
+                        sections.append(current_chunk)
+                    level = len(matched.group(1))
+                    title = matched.group(2).strip()
+                    while len(heading_path) >= level:
+                        heading_path.pop()
+                    heading_path.append(title)
+                    current_chunk = Chunk(
+                        Content="",
+                        Source=source,
+                        Title=title,
+                        Heading_Path=deepcopy(heading_path),
+                        page=page.page_number,
+                        contains_image=False,
+                        contains_table=False,
+                        contains_formulas=False,
+                    )
+                    current_content = []
+                    i += 1
+                    continue
+                if current_chunk is None:
+                    i += 1
+                    continue
+                if line.startswith("'''mermaid"):
+                    current_chunk.contains_image = True
+                    previous = ""
+                    for j in range(len(current_content) - 1, -1, -1):
+                        if current_content[j].strip():
+                            previous = current_content[j]
+                            break
+                    mermaid = [line]
+                    i += 1
+                    while i < len(lines):
+                        mermaid.append(lines[i])
+                        if lines[i].strip() == "'''":
+                            break
+                        i += 1
+                    following = ""
+                    k = i + 1
+                    while k < len(lines):
+                        next_line = lines[k].strip()
+                        if not next_line:
+                            k += 1
+                            continue
+                        if Heading_pattern.match(next_line):
+                            break
+                        if next_line.startswith("'''mermaid"):
+                            break
+                        if next_line.startswith("<table>"):
+                            break
+                        following = next_line
+                        break
+                    current_chunk.mermaid_diagrams.append(
+                        MermaidDiagram(
+                            previous=previous,
+                            content="\n".join(mermaid),
+                            following=following,
+                        )
+                    )
+                    i += 1
+                    continue
+                if line.startswith("<table>"):
+                    current_chunk.contains_table = True
+                    table = [line]
+                    i += 1
+                    while i < len(lines):
+                        table.append(lines[i])
+                        if "</table>" in lines[i]:
+                            break
+                        i += 1
+                    current_content.append(minify_table(table))
+                    i += 1
+                    continue
+                if "$" in line:
+                    current_chunk.contains_formulas = True
+                current_content.append(line)
+                i += 1
+        if current_chunk:
+            current_chunk.Content = "\n".join(current_content)
+            sections.append(current_chunk)
+    return sections
