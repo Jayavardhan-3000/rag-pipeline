@@ -1,21 +1,17 @@
 from dataclasses import dataclass, field
 from parser.enums import BlockType
-@dataclass
-class MermaidDiagram:
-    index: int
-    content: str
 
 @dataclass
 class Chunk:
-    Content: str
-    Source: str
-    Title: str
-    Heading_Path: list[str]
+    content: str
+    source: str
+    title: str
+    heading_path: list[str]
     page: int
     contains_image: bool
     contains_table: bool
     contains_formulas: bool
-    mermaid_diagrams: list[MermaidDiagram] = field(default_factory=list)
+    section_id: str
     
 @dataclass
 class AtomicBlock:
@@ -26,11 +22,14 @@ class AtomicBlock:
 @dataclass
 class MermaidDiagram:
     previous: str
+    previous_embedding: list[float] | None
     content: str
-    following : str
+    following: str
+    following_embedding: list[float] | None
     
 @dataclass
 class Section:
+    section_id: str
     source: str
     title: str
     heading_path: list[str]
@@ -52,8 +51,3 @@ class Chunk:
     contains_table: bool
     contains_formulas: bool
     mermaid_diagrams: list[MermaidDiagram]
-    
-@dataclass
-class SplitResult:
-    blocks: list[AtomicBlock]
-    block_mapping: list[tuple[int, int]]
