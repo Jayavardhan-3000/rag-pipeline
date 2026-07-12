@@ -1,170 +1,428 @@
-# RAG Pipeline
+# Semantic Document Indexing Pipeline
 
-A production-ready, modular **Retrieval-Augmented Generation (RAG)** pipeline built from scratch in Python — no LangChain, no LlamaIndex. Every stage is hand-rolled and clearly separated, making the internals easy to understand, extend, or swap out.
-
-Built as the retrieval backbone for [DOT](https://github.com/Jayavardhan-3000), an offline AI research assistant.
+A modular, section-aware document indexing pipeline built for Retrieval-Augmented Generation (RAG). Rather than treating a document as plain text, this project preserves document structure, separates visual artifacts from textual content, and produces retrieval-optimized chunks while maintaining semantic integrity.
 
 ---
 
-## How It Works
+## Motivation
+
+Most RAG pipelines follow a simple workflow:
 
 ```
-.txt documents in /sources
-        ↓
-  [ Chunker ]          — Splits text into overlapping word-windows with SHA-256 chunk IDs
-        ↓
-  [ Embedder ]         — Encodes chunks using sentence-transformers (all-MiniLM-L6-v2)
-        ↓
-  [ Vector Index ]     — Builds a FAISS IndexFlatIP (inner-product / cosine similarity)
-        ↓  (persisted to ./vector_store on first run, loaded on subsequent runs)
-  [ Retriever ]        — Embeds query, searches FAISS, returns top-K scored chunks
-        ↓
-  [ Generation ]       — Streams answer from a local Ollama LLM with timing metrics
+PDF
+    ↓
+Extract Text
+    ↓
+Split Every N Tokens
+    ↓
+Embed
 ```
+
+Although simple, this approach introduces several problems:
+
+* Sections are broken arbitrarily.
+* Long paragraphs lose semantic continuity.
+* Visual artifacts such as Mermaid diagrams are embedded as meaningless text.
+* Tables and formulas are often mishandled.
+* Multiple diagrams inside the same section cannot be retrieved accurately.
+
+This project approaches document indexing differently.
+
+Instead of viewing a document as one continuous stream of text, it treats the document as a hierarchy of semantic units and indexes them accordingly.
 
 ---
 
-## Project Structure
+# Design Philosophy
+
+This project follows a few fundamental principles.
+
+## Sections are the source of truth
+
+A document is first divided into semantic sections using markdown headings.
+
+Everything else is derived from these sections.
 
 ```
-rag-pipeline/
-├── main.py            # Entry point — wires all stages together
-├── chunker.py         # Word-window chunking with configurable size and overlap
-├── embedder.py        # Batch embedding via SentenceTransformer
-├── vector_index.py    # FAISS index build / save / load with @timer decorators
-├── retriever.py       # Query embedding + top-K FAISS search
-├── generation.py      # Streaming generation via Ollama with TTFT metrics
-├── prompts.py         # System prompt for the LLM
-├── chunk_type.py      # TypedDict definition for a Chunk
-├── config.py          # Central config (model names, TOP_K, paths)
-├── utils.py         # Timing decorator used across modules
-├── sources/           # Drop your .txt documents here
-└── vector_store/      # Auto-created — stores faiss.index and chunks.json
+Document
+    │
+    ▼
+Section
+    ├── Metadata
+    ├── Paragraph Blocks
+    ├── Visual Artifacts
+    └── Structural Information
 ```
+
+Sections remain intact throughout parsing.
 
 ---
 
-## Pipeline Stages
+## Chunks are retrieval units
 
-### 1. Chunking (`chunker.py`)
-Reads all `.txt` files from a given directory and splits each into overlapping word-windows.
+Chunks are **not** the document representation.
 
-- Default `chunk_size = 300` words, `overlap_by = 30` words
-- Overlap ensures context isn't lost at chunk boundaries
-- Each chunk gets a deterministic SHA-256 ID (`doc_stem_idx_hash8`) for idempotency
-- Metadata stored per chunk: `chunk_id`, `chunk_index`, `doc_id`, `source`, `word_count`, `content`
-
-### 2. Embedding (`embedder.py`)
-Encodes chunks in batches using `sentence-transformers`.
-
-- Model: `sentence-transformers/all-MiniLM-L6-v2` (fast, 384-dim, great for semantic search)
-- Embeddings are L2-normalized (`normalize_embeddings=True`) so cosine similarity equals inner product
-- Default batch size: 32
-
-### 3. Vector Index (`vector_index.py`)
-Builds and persists a FAISS index for fast nearest-neighbor search.
-
-- Index type: `IndexFlatIP` (exact inner-product search — correct for normalized vectors)
-- Saves index + chunk metadata as `faiss.index` and `chunks.json` in `./vector_store`
-- On subsequent runs, the saved index is loaded directly — no re-embedding needed
-- Key functions wrapped with `@timer` for profiling
-
-### 4. Retrieval (`retriever.py`)
-Encodes the user query and runs a FAISS search to find the most semantically similar chunks.
-
-- Returns top-K results (default `TOP_K = 5`) with similarity scores attached
-- Skips invalid FAISS indices (`idx == -1`) safely
-
-### 5. Generation (`generation.py`)
-Passes retrieved context + query to a local LLM via Ollama and streams the response.
-
-- Uses the structured `[system, user]` message format
-- Streams tokens to stdout in real-time
-- Reports **total time**, **time to first token (TTFT)**, and **streaming duration**
-
----
-
-## Configuration (`config.py`)
-
-```python
-TOP_K = 5                                        # Number of chunks to retrieve
-MODEL_NAME = "sentence-transformers/all-MiniLM-L6-v2"  # Embedding model
-LLM = "dotv1:latest"                             # Ollama model name
-VECTOR_STORE = "./vector_store"                  # Persistence directory
-```
-
-Change `LLM` to any model you have pulled in Ollama (e.g. `llama3`, `mistral`, `phi3`).
-
----
-
-## Getting Started
-
-### Prerequisites
-
-- Python 3.10+
-- [Ollama](https://ollama.com) installed and running locally
-- An Ollama model pulled: `ollama pull <model-name>`
-
-### Install
-
-```bash
-git clone https://github.com/Jayavardhan-3000/rag-pipeline.git
-cd rag-pipeline
-pip install -r requirements.txt
-```
-
-### Add your documents
-
-Drop `.txt` files into the `sources/` directory:
-
-```bash
-cp my_document.txt sources/
-```
-
-### Run
-
-```bash
-python main.py
-```
-
-On first run, the pipeline chunks, embeds, and indexes your documents, then saves the vector store. On all subsequent runs it loads the saved index directly and jumps straight to retrieval.
-
----
-
-## Requirements
+Chunks exist solely for efficient embedding and retrieval.
 
 ```
-sentence-transformers
-faiss-cpu
-numpy
-ollama
-torch
+Section
+      │
+      ▼
+Chunk Packing
+      │
+      ▼
+Chunks
+      │
+      ▼
+Embeddings
 ```
 
 ---
 
-## Design Decisions
+## Artifacts are independent
 
-**Why no framework?** Building without LangChain or LlamaIndex means every component is explicit and debuggable. There's no magic — you can see exactly how chunks are formed, how embeddings flow into FAISS, and how the prompt is constructed.
+Visual artifacts should never participate in chunking.
 
-**Why `IndexFlatIP`?** Because embeddings are L2-normalized, inner product and cosine similarity are equivalent. `IndexFlatIP` does exact search — no approximation errors, which matters at this scale.
+Instead, they are extracted during parsing and stored independently.
 
-**Why SHA-256 chunk IDs?** Identical text always produces the same ID. This enables deduplication and safe re-indexing without creating ghost chunks.
+Current supported artifact:
 
-**Why Ollama?** Fully offline, no API keys, supports swapping models with a single config change.
+* Mermaid Diagrams
+
+Future artifacts may include:
+
+* Images
+* SVGs
+* Flowcharts
+* Tables
+* UML Diagrams
+* Mathematical Figures
 
 ---
 
-## What's Next
+## Parsing before optimization
 
-- [ ] Hybrid retrieval (BM25 + dense vectors with RRF fusion)
-- [ ] Cross-encoder reranking for precision boost
-- [ ] Multi-document support (PDF, DOCX ingestion)
-- [ ] REST API wrapper (Flask/FastAPI)
-- [ ] LLM-as-judge evaluation loop
+The parser captures the document faithfully.
+
+Optimization happens later.
+
+Parsing should never make decisions based on embedding models or vector databases.
 
 ---
 
-## Author
+# Pipeline
 
-**Jayavardhan** · [github.com/Jayavardhan-3000](https://github.com/Jayavardhan-3000)
+```
+PDF
+ │
+ ▼
+LlamaParse
+ │
+ ▼
+Markdown
+ │
+ ▼
+Chunker
+ │
+ ▼
+Sections
+ ├──────────────┐
+ │              │
+ ▼              ▼
+Packer      Artifact Store
+ │              │
+ ▼              ▼
+Chunks     artifacts.json
+ │
+ ▼
+Embedder
+ │
+ ▼
+Vector Database
+```
+
+---
+
+# Architecture
+
+## Chunker
+
+Responsible for converting parsed markdown into semantic sections.
+
+Responsibilities:
+
+* Detect markdown headings
+* Preserve heading hierarchy
+* Build paragraph blocks
+* Detect tables
+* Detect formulas
+* Extract Mermaid diagrams
+* Generate deterministic section identifiers
+
+Output:
+
+```
+list[Section]
+```
+
+---
+
+## Recursive Splitter
+
+Large paragraph blocks occasionally exceed embedding limits.
+
+Instead of splitting the entire document, only oversized blocks are recursively divided.
+
+The splitter follows a simple strategy:
+
+1. If the block fits → keep it.
+2. Split by lines.
+3. If only one line exists, split by words.
+4. Continue recursively until every block satisfies the token limit.
+
+The splitter acts as a safety mechanism rather than the primary chunking algorithm.
+
+---
+
+## Packer
+
+The packer converts sections into retrieval chunks.
+
+Responsibilities:
+
+* Expand oversized blocks
+* Pack blocks into target token sizes
+* Preserve section metadata
+* Produce retrieval-ready chunks
+
+The packer does **not** know anything about Mermaid diagrams or artifact selection.
+
+---
+
+## Artifact Store
+
+Artifacts are stored independently from chunks.
+
+Current implementation stores:
+
+```
+section_id
+    │
+    ▼
+Mermaid Diagrams
+```
+
+Artifacts are serialized into JSON.
+
+Chunks only maintain a reference to the originating section.
+
+---
+
+## Embedder
+
+Chunks are embedded for retrieval.
+
+Artifacts are intentionally excluded from chunk embeddings.
+
+Instead, lightweight embeddings are generated only for the contextual paragraphs surrounding each artifact.
+
+---
+
+## Retriever
+
+Retrieval happens in two stages.
+
+### Stage 1
+
+Retrieve the most relevant chunks using vector similarity.
+
+```
+Query
+    │
+    ▼
+Vector Database
+    │
+    ▼
+Top-k Chunks
+```
+
+---
+
+### Stage 2
+
+If the user explicitly requests a visual artifact:
+
+* Identify retrieved sections.
+* Load corresponding artifacts.
+* Compare the query with local contextual embeddings.
+* Select the most relevant artifact.
+
+```
+Top-k Chunks
+      │
+      ▼
+Artifact Store
+      │
+      ▼
+Local Similarity
+      │
+      ▼
+Best Mermaid Diagram
+```
+
+---
+
+# Chunking Strategy
+
+Unlike traditional chunkers, this project does not split text immediately by token count.
+
+Instead:
+
+1. Parse semantic sections.
+2. Convert paragraphs into atomic blocks.
+3. Preserve tables independently.
+4. Extract artifacts.
+5. Split only oversized paragraph blocks.
+6. Pack blocks into retrieval chunks.
+
+This significantly reduces unnecessary semantic fragmentation.
+
+---
+
+# Mermaid Retrieval
+
+Mermaid diagrams are never embedded directly.
+
+Each diagram stores:
+
+* Previous paragraph
+* Following paragraph
+* Diagram content
+
+During indexing, lightweight embeddings are generated for the surrounding paragraphs.
+
+During retrieval:
+
+```
+Query
+     │
+     ▼
+Previous Paragraph Embedding
+
+Following Paragraph Embedding
+```
+
+The resulting similarity scores determine which diagram best answers the user's request.
+
+This avoids embedding diagram syntax while still allowing accurate diagram retrieval.
+
+---
+
+# Section Identifiers
+
+Every section receives a deterministic SHA-256 identifier derived from:
+
+```
+source + heading_path
+```
+
+Advantages:
+
+* Stable across re-indexing
+* No random UUIDs
+* Easy artifact lookup
+* Consistent references
+
+---
+
+# Directory Structure
+
+```
+project/
+│
+├── parser/
+│   ├── parsed_page.py
+│   ├── enums.py
+│   └── ...
+│
+├── chunk_type.py
+├── chunker.py
+├── recursive_split.py
+├── packer.py
+├── artifact_store.py
+├── embedder.py
+├── retriever.py
+├── vector_store.py
+└── indexer.py
+```
+
+---
+
+# Why not Token Chunking?
+
+Fixed-size chunking often introduces several issues.
+
+```
+Paragraph
+──────────────┐
+              ▼
+        Split Here
+```
+
+The resulting chunks frequently lose semantic continuity.
+
+Instead, this project prioritizes preserving natural document structure before considering embedding constraints.
+
+---
+
+# Why Artifacts are Separate
+
+Visual artifacts are fundamentally different from textual knowledge.
+
+Embedding Mermaid syntax rarely provides meaningful semantic information.
+
+By separating artifacts:
+
+* Chunk embeddings remain clean.
+* Retrieval quality improves.
+* Visual content can evolve independently.
+* Future artifact types integrate naturally.
+
+---
+
+# Current Features
+
+* Section-aware parsing
+* Paragraph-based atomic blocks
+* Recursive fallback splitting
+* Token-aware chunk packing
+* Heading hierarchy preservation
+* Table detection
+* Formula detection
+* Mermaid extraction
+* Artifact serialization
+* Deterministic section identifiers
+
+---
+
+# Future Improvements
+
+* Multi-artifact support
+* Image retrieval
+* SVG artifact support
+* Formula rendering
+* Adaptive chunk packing
+* Parallel indexing
+* Incremental indexing
+* Metadata-aware retrieval
+* Hybrid lexical + vector retrieval
+* Cross-document artifact linking
+
+---
+
+# Goals
+
+The objective of this project is not simply to split documents.
+
+The goal is to build a document indexing pipeline that preserves semantic structure, minimizes information loss, and provides a strong foundation for Retrieval-Augmented Generation systems.
+
+Rather than optimizing solely for embedding efficiency, the architecture prioritizes maintainability, extensibility, and faithful representation of the original document.
