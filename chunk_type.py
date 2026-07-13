@@ -1,17 +1,5 @@
 from dataclasses import dataclass, field
 from parser.enums import BlockType
-
-@dataclass
-class Chunk:
-    content: str
-    source: str
-    title: str
-    heading_path: list[str]
-    page: int
-    contains_image: bool
-    contains_table: bool
-    contains_formulas: bool
-    section_id: str
     
 @dataclass
 class AtomicBlock:

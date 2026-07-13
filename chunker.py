@@ -43,6 +43,7 @@ def finalize_section(
     section.contains_table = contains_table
     section.contains_formulas = contains_formulas
     sections.append(section)
+    
 def chunker(data: dict[str, list[ParsedPage]]) -> list[Section]:
     sections = []
     for source, pages in data.items():
