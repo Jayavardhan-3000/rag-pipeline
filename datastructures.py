@@ -38,4 +38,9 @@ class Chunk:
     contains_image: bool
     contains_table: bool
     contains_formulas: bool
-    mermaid_diagrams: list[MermaidDiagram]
+    section_id: str
+    
+@dataclass
+class PackedPart:
+    content: str
+    tokens: int
