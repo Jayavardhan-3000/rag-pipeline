@@ -6,7 +6,7 @@ from utils import timer
 #Soon will add token limiting, merging adjacent chunks together and more...
 class ContextBuilder:
     @timer
-    def build(self, query: str, analysis: QueryAnalysis ,retrieval_results: list[RetrievalResult] ,mermaid_results: list[MermaidRetrievalResult]) -> Context:
+    def build(self, query: str, analysis: QueryAnalysis ,retrieval_results: list[RetrievalResult] ,mermaid_results: list[MermaidRetrievalResult]) -> Context:       
         if not retrieval_results:
             raise ValueError("Retrieval results are empty.")
         chunks = []

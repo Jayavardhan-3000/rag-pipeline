@@ -51,18 +51,24 @@ async def main():
     prompt_builder = PromptBuilder()
     llm = LLM(api_key=GROQ_API_KEY,model=GROQ_MODEL)
     while True:
-        query = input("\nQuery > ").strip()
         if query.lower() in {"exit", "quit"}:
             break
-        analysis = analyzer.analyze(query)
-        semantic_results, bm25_results = retriever.retrieve(query)
-        retrieval_results = reciprocal_rank_fusion(semantic_results,  bm25_results)
-        reranked_results = reranker.rerank(query=query,results=retrieval_results, final_top_k=FINAL_TOP_K)
-        mermaid_results = mermaid_retriever.retrieve(query=query,  analysis=analysis, retrieval_results=reranked_results)
-        context = context_builder.build(query=query, analysis=analysis, retrieval_results=reranked_results,mermaid_results=mermaid_results)
-        prompt = prompt_builder.build( context )
-        print("\nAnswer:\n")
-        llm.generate_answer(prompt)
+        try:
+            query = input("\nQuery > ").strip()
+            if query.lower() in {"exit", "quit"}:
+                break
+            analysis = analyzer.analyze(query)
+            semantic_results, bm25_results = retriever.retrieve(query)
+            retrieval_results = reciprocal_rank_fusion(semantic_results,  bm25_results)
+            reranked_results = reranker.rerank(query=query,results=retrieval_results, final_top_k=FINAL_TOP_K)
+            mermaid_results = mermaid_retriever.retrieve(query=query,  analysis=analysis, retrieval_results=reranked_results)
+            context = context_builder.build(query=query, analysis=analysis, retrieval_results=reranked_results,mermaid_results=mermaid_results)
+            prompt = prompt_builder.build( context )
+            print("\nAnswer:\n")
+            llm.generate_answer(prompt)
+        except ValueError as error:
+            print(f"\nNo relevant results found: {error}\n")
+            continue
 
 if __name__ == "__main__":
     asyncio.run(main())
