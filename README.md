@@ -1,4 +1,4 @@
-# Semantic Document Indexing Pipeline
+# Lotus - Production level RAG Pipeline 
 
 A modular, section-aware document indexing pipeline built for Retrieval-Augmented Generation (RAG). Rather than treating a document as plain text, this project preserves document structure, separates visual artifacts from textual content, and produces retrieval-optimized chunks while maintaining semantic integrity.
 
