@@ -1,5 +1,5 @@
 from time import perf_counter
-
+import time
 from groq import Groq
 from utils import timer
 
@@ -10,6 +10,7 @@ class LLM:
 
     @timer
     def generate_answer(self, prompt: str) -> str:
+        time.sleep(1)
         start = perf_counter()
         try:
             stream = self.client.chat.completions.create(

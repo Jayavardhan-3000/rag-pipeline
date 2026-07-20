@@ -23,10 +23,22 @@ load_dotenv()
 HF_TOKEN = os.getenv("HF_TOKEN")
 GROQ_API_KEY = os.getenv("GROQ_API_KEY")
 
+def embed_diagram_context(embedder: Embedder, sections):
+    """Populate previous_embedding/following_embedding on every mermaid
+    diagram so MermaidRetriever has something to compare queries against
+    after a fresh index build. Must run before ArtifactStore.save()."""
+    for section in sections:
+        for diagram in section.mermaid_diagrams:
+            if diagram.previous.strip():
+                diagram.previous_embedding = embedder.embed_query(diagram.previous).tolist()
+            if diagram.following.strip():
+                diagram.following_embedding = embedder.embed_query(diagram.following).tolist()
+                
 async def build_vector_store(embedder: Embedder):
     parser = MarkdownParser(SOURCES_PATH)
     parsed_pages = await parser.parse_directory()
     sections = chunker.chunker(parsed_pages)
+    embed_diagram_context(embedder, sections)
     ArtifactStore.save(sections,"./vector_store/artifacts.json")
     chunks = packer.pack_sections( sections,count_tokens)
     embeddings = embedder.embed_chunks(chunks)
@@ -50,6 +62,7 @@ async def main():
     context_builder = ContextBuilder()
     prompt_builder = PromptBuilder()
     llm = LLM(api_key=GROQ_API_KEY,model=GROQ_MODEL)
+    query = "start"
     while True:
         if query.lower() in {"exit", "quit"}:
             break

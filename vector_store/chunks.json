@@ -1,7 +1,7 @@
 [
   {
     "chunk_id": 0,
-    "content": "**Ashish Vaswani<sup>\\*</sup>**\nGoogle Brain\navaswani@google.com\n\n**Noam Shazeer<sup>\\*</sup>**\nGoogle Brain\nnoam@google.com\n\n**Niki Parmar<sup>\\*</sup>**\nGoogle Research\nnikip@google.com\n\n**Jakob Uszkoreit<sup>\\*</sup>**\nGoogle Research\nusz@google.com\n\n**Llion Jones<sup>\\*</sup>**\nGoogle Research\nllion@google.com\n\n**Aidan N. Gomez<sup>\\* \u2020</sup>**\nUniversity of Toronto\naidan@cs.toronto.edu\n\n**\u0141ukasz Kaiser<sup>\\*</sup>**\nGoogle Brain\nlukaszkaiser@google.com\n\n**Illia Polosukhin<sup>\\* \u2021</sup>**\nillia.polosukhin@gmail.com",
+    "content": "Ashish Vaswani<sup>\u2217</sup>\nGoogle Brain\navaswani@google.com\n\nNoam Shazeer<sup>\u2217</sup>\nGoogle Brain\nnoam@google.com\n\nNiki Parmar<sup>\u2217</sup>\nGoogle Research\nnikip@google.com\n\nJakob Uszkoreit<sup>\u2217</sup>\nGoogle Research\nusz@google.com\n\nLlion Jones<sup>\u2217</sup>\nGoogle Research\nllion@google.com\n\nAidan N. Gomez<sup>\u2217 \u2020</sup>\nUniversity of Toronto\naidan@cs.toronto.edu\n\n\u0141ukasz Kaiser<sup>\u2217</sup>\nGoogle Brain\nlukaszkaiser@google.com\n\nIllia Polosukhin<sup>\u2217 \u2021</sup>\nillia.polosukhin@gmail.com",
     "source": "attention-is-all-you-need",
     "title": "Attention Is All You Need",
     "heading_path": [
@@ -15,7 +15,7 @@
   },
   {
     "chunk_id": 1,
-    "content": "The dominant sequence transduction models are based on complex recurrent or convolutional neural networks that include an encoder and a decoder. The best performing models also connect the encoder and decoder through an attention mechanism. We propose a new simple network architecture, the Transformer, based solely on attention mechanisms, dispensing with recurrence and convolutions entirely. Experiments on two machine translation tasks show these models to be superior in quality while being more parallelizable and requiring significantly less time to train. Our model achieves 28.4 BLEU on the WMT 2014 English-to-German translation task, improving over the existing best results, including ensembles, by over 2 BLEU. On the WMT 2014 English-to-French translation task, our model establishes a new single-model state-of-the-art BLEU score of 41.8 after training for 3.5 days on eight GPUs, a small fraction of the training costs of the best models from the literature. We show that the Transformer generalizes well to other tasks by applying it successfully to English constituency parsing both with large and limited training data.\n\n<sup>\\*</sup>Equal contribution. Listing order is random. Jakob proposed replacing RNNs with self-attention and started the effort to evaluate this idea. Ashish, with Illia, designed and implemented the first Transformer models and has been crucially involved in every aspect of this work. Noam proposed scaled dot-product attention, multi-head attention and the parameter-free position representation and became the other person involved in nearly every detail. Niki designed, implemented, tuned and evaluated countless model variants in our original codebase and tensor2tensor. Llion also experimented with novel model variants, was responsible for our initial codebase, and efficient inference and visualizations. Lukasz and Aidan spent countless long days designing various parts of and implementing tensor2tensor, replacing our earlier codebase, greatly improving results and massively accelerating our research.\n\n<sup>\u2020</sup>Work performed while at Google Brain.\n\n<sup>\u2021</sup>Work performed while at Google Research.",
+    "content": "The dominant sequence transduction models are based on complex recurrent or convolutional neural networks that include an encoder and a decoder. The best performing models also connect the encoder and decoder through an attention mechanism. We propose a new simple network architecture, the Transformer, based solely on attention mechanisms, dispensing with recurrence and convolutions entirely. Experiments on two machine translation tasks show these models to be superior in quality while being more parallelizable and requiring significantly less time to train. Our model achieves 28.4 BLEU on the WMT 2014 English-to-German translation task, improving over the existing best results, including ensembles, by over 2 BLEU. On the WMT 2014 English-to-French translation task, our model establishes a new single-model state-of-the-art BLEU score of 41.8 after training for 3.5 days on eight GPUs, a small fraction of the training costs of the best models from the literature. We show that the Transformer generalizes well to other tasks by applying it successfully to English constituency parsing both with large and limited training data.",
     "source": "attention-is-all-you-need",
     "title": "Abstract",
     "heading_path": [
@@ -30,7 +30,22 @@
   },
   {
     "chunk_id": 2,
-    "content": "Recurrent neural networks, long short-term memory [13] and gated recurrent [7] neural networks in particular, have been firmly established as state of the art approaches in sequence modeling and transduction problems such as language modeling and machine translation [35, 2, 5]. Numerous efforts have since continued to push the boundaries of recurrent language models and encoder-decoder architectures [38, 24, 15].\n\nRecurrent models typically factor computation along the symbol positions of the input and output sequences. Aligning the positions to steps in computation time, they generate a sequence of hidden states $h_t$, as a function of the previous hidden state $h_{t-1}$ and the input for position $t$. This inherently sequential nature precludes parallelization within training examples, which becomes critical at longer sequence lengths, as memory constraints limit batching across examples. Recent work has achieved significant improvements in computational efficiency through factorization tricks [21] and conditional computation [32], while also improving model performance in case of the latter. The fundamental constraint of sequential computation, however, remains.\n\nAttention mechanisms have become an integral part of compelling sequence modeling and transduction models in various tasks, allowing modeling of dependencies without regard to their distance in the input or output sequences [2, 19]. In all but a few cases [27], however, such attention mechanisms are used in conjunction with a recurrent network.\n\nIn this work we propose the Transformer, a model architecture eschewing recurrence and instead relying entirely on an attention mechanism to draw global dependencies between input and output. The Transformer allows for significantly more parallelization and can reach a new state of the art in translation quality after being trained for as little as twelve hours on eight P100 GPUs.",
+    "content": "<sup>\u2217</sup>Equal contribution. Listing order is random. Jakob proposed replacing RNNs with self-attention and started the effort to evaluate this idea. Ashish, with Illia, designed and implemented the first Transformer models and has been crucially involved in every aspect of this work. Noam proposed scaled dot-product attention, multi-head attention and the parameter-free position representation and became the other person involved in nearly every detail. Niki designed, implemented, tuned and evaluated countless model variants in our original codebase and tensor2tensor. Llion also experimented with novel model variants, was responsible for our initial codebase, and efficient inference and visualizations. Lukasz and Aidan spent countless long days designing various parts of and implementing tensor2tensor, replacing our earlier codebase, greatly improving results and massively accelerating our research.\n\n<sup>\u2020</sup>Work performed while at Google Brain.\n\n<sup>\u2021</sup>Work performed while at Google Research.",
+    "source": "attention-is-all-you-need",
+    "title": "Abstract",
+    "heading_path": [
+      "Attention Is All You Need",
+      "Abstract"
+    ],
+    "page": 1,
+    "contains_image": false,
+    "contains_table": false,
+    "contains_formulas": false,
+    "section_id": "a8ec3d2d86b88488d8b504a26615d71c231b6a64130949f8584e5508aa256869"
+  },
+  {
+    "chunk_id": 3,
+    "content": "Recurrent neural networks, long short-term memory [13] and gated recurrent [7] neural networks in particular, have been firmly established as state of the art approaches in sequence modeling and transduction problems such as language modeling and machine translation [35, 2, 5]. Numerous efforts have since continued to push the boundaries of recurrent language models and encoder-decoder architectures [38, 24, 15].\n\nRecurrent models typically factor computation along the symbol positions of the input and output sequences. Aligning the positions to steps in computation time, they generate a sequence of hidden states $h_t$, as a function of the previous hidden state $h_{t-1}$ and the input for position $t$. This inherently sequential nature precludes parallelization within training examples, which becomes critical at longer sequence lengths, as memory constraints limit batching across examples. Recent work has achieved significant improvements in computational efficiency through factorization tricks [21] and conditional computation [32], while also improving model performance in case of the latter. The fundamental constraint of sequential computation, however, remains.\n\nAttention mechanisms have become an integral part of compelling sequence modeling and transduction models in various tasks, allowing modeling of dependencies without regard to their distance in the input or output sequences [2, 19]. In all but a few cases [27], however, such attention mechanisms are used in conjunction with a recurrent network.",
     "source": "attention-is-all-you-need",
     "title": "1 Introduction",
     "heading_path": [
@@ -43,8 +58,22 @@
     "section_id": "bb4f3641308a8bb9192fb613eb566f0ec757e2e0e96a1c06cfb84ea3f2b82734"
   },
   {
-    "chunk_id": 3,
-    "content": "The goal of reducing sequential computation also forms the foundation of the Extended Neural GPU [16], ByteNet [18] and ConvS2S [9], all of which use convolutional neural networks as basic building block, computing hidden representations in parallel for all input and output positions. In these models, the number of operations required to relate signals from two arbitrary input or output positions grows in the distance between positions, linearly for ConvS2S and logarithmically for ByteNet. This makes it more difficult to learn dependencies between distant positions [12]. In the Transformer this is reduced to a constant number of operations, albeit at the cost of reduced effective resolution due to averaging attention-weighted positions, an effect we counteract with Multi-Head Attention as described in section 3.2.\n\nSelf-attention, sometimes called intra-attention is an attention mechanism relating different positions of a single sequence in order to compute a representation of the sequence. Self-attention has been used successfully in a variety of tasks including reading comprehension, abstractive summarization, textual entailment and learning task-independent sentence representations [4, 27, 28, 22].\n\nEnd-to-end memory networks are based on a recurrent attention mechanism instead of sequence-aligned recurrence and have been shown to perform well on simple-language question answering and language modeling tasks [34].\n\nTo the best of our knowledge, however, the Transformer is the first transduction model relying entirely on self-attention to compute representations of its input and output without using sequence-aligned RNNs or convolution. In the following sections, we will describe the Transformer, motivate self-attention and discuss its advantages over models such as [17, 18] and [9].",
+    "chunk_id": 4,
+    "content": "In this work we propose the Transformer, a model architecture eschewing recurrence and instead relying entirely on an attention mechanism to draw global dependencies between input and output. The Transformer allows for significantly more parallelization and can reach a new state of the art in translation quality after being trained for as little as twelve hours on eight P100 GPUs.",
+    "source": "attention-is-all-you-need",
+    "title": "1 Introduction",
+    "heading_path": [
+      "1 Introduction"
+    ],
+    "page": 2,
+    "contains_image": false,
+    "contains_table": false,
+    "contains_formulas": true,
+    "section_id": "bb4f3641308a8bb9192fb613eb566f0ec757e2e0e96a1c06cfb84ea3f2b82734"
+  },
+  {
+    "chunk_id": 5,
+    "content": "The goal of reducing sequential computation also forms the foundation of the Extended Neural GPU [16], ByteNet [18] and ConvS2S [9], all of which use convolutional neural networks as basic building block, computing hidden representations in parallel for all input and output positions. In these models, the number of operations required to relate signals from two arbitrary input or output positions grows in the distance between positions, linearly for ConvS2S and logarithmically for ByteNet. This makes it more difficult to learn dependencies between distant positions [12]. In the Transformer this is reduced to a constant number of operations, albeit at the cost of reduced effective resolution due to averaging attention-weighted positions, an effect we counteract with Multi-Head Attention as described in section 3.2.\n\nSelf-attention, sometimes called intra-attention is an attention mechanism relating different positions of a single sequence in order to compute a representation of the sequence. Self-attention has been used successfully in a variety of tasks including reading comprehension, abstractive summarization, textual entailment and learning task-independent sentence representations [4, 27, 28, 22].\n\nEnd-to-end memory networks are based on a recurrent attention mechanism instead of sequence-aligned recurrence and have been shown to perform well on simple-language question answering and language modeling tasks [34].",
     "source": "attention-is-all-you-need",
     "title": "2 Background",
     "heading_path": [
@@ -57,8 +86,22 @@
     "section_id": "f80bb464a9a3e7a990eca80ee324b614ef4d6701d2deeb6b49cf0b03773a5575"
   },
   {
-    "chunk_id": 4,
-    "content": "Most competitive neural sequence transduction models have an encoder-decoder structure [5, 2, 35]. Here, the encoder maps an input sequence of symbol representations $(x_1, ..., x_n)$ to a sequence of continuous representations $\\mathbf{z} = (z_1, ..., z_n)$. Given $\\mathbf{z}$, the decoder then generates an output sequence $(y_1, ..., y_m)$ of symbols one element at a time. At each step the model is auto-regressive [10], consuming the previously generated symbols as additional input when generating the next.\n```mermaid\ngraph TD\n    subgraph Encoder [Nx]\n        E1[Multi-Head Attention] --> E2[Add & Norm]\n        E2 --> E3[Feed Forward]\n        E3 --> E4[Add & Norm]\n    end\n\nsubgraph Decoder [Nx]\n        D1[Masked Multi-Head Attention] --> D2[Add & Norm]\n        D2 --> D3[Multi-Head Attention]\n        D3 --> D4[Add & Norm]\n        D4 --> D5[Feed Forward]\n        D5 --> D6[Add & Norm]\n    end\n\nInputs --> InputEmbedding[Input Embedding]\n    InputEmbedding --> PositionalEncoding1((+))\n    PositionalEncoding1 --> Encoder\n\nOutputs --> OutputEmbedding[Output Embedding]\n    OutputEmbedding --> PositionalEncoding2((+))\n    PositionalEncoding2 --> Decoder\n\nEncoder --> D3\n    Decoder --> Linear\n    Linear --> Softmax\n    Softmax --> OutputProbabilities[Output Probabilities]\n\nstyle Encoder fill:none,stroke:#000\n    style Decoder fill:none,stroke:#000\n```\n\nFigure 1: The Transformer - model architecture.\n\nThe Transformer follows this overall architecture using stacked self-attention and point-wise, fully connected layers for both the encoder and decoder, shown in the left and right halves of Figure 1, respectively.",
+    "chunk_id": 6,
+    "content": "To the best of our knowledge, however, the Transformer is the first transduction model relying entirely on self-attention to compute representations of its input and output without using sequence-aligned RNNs or convolution. In the following sections, we will describe the Transformer, motivate self-attention and discuss its advantages over models such as [17, 18] and [9].",
+    "source": "attention-is-all-you-need",
+    "title": "2 Background",
+    "heading_path": [
+      "2 Background"
+    ],
+    "page": 2,
+    "contains_image": false,
+    "contains_table": false,
+    "contains_formulas": false,
+    "section_id": "f80bb464a9a3e7a990eca80ee324b614ef4d6701d2deeb6b49cf0b03773a5575"
+  },
+  {
+    "chunk_id": 7,
+    "content": "Most competitive neural sequence transduction models have an encoder-decoder structure [5, 2, 35]. Here, the encoder maps an input sequence of symbol representations $(x_1, ..., x_n)$ to a sequence of continuous representations $\\mathbf{z} = (z_1, ..., z_n)$. Given $\\mathbf{z}$, the decoder then generates an output sequence $(y_1, ..., y_m)$ of symbols one element at a time. At each step the model is auto-regressive [10], consuming the previously generated symbols as additional input when generating the next.\n```mermaid\ngraph TD\n    subgraph Encoder [Encoder Stack]\n        direction BT\n        In[Inputs] --> InEmb[Input Embedding]\n        InEmb --> AddPos1((+))\n        PosEnc1[Positional Encoding] --> AddPos1\n        AddPos1 --> MHA1[Multi-Head Attention]\n        MHA1 --> AN1[Add & Norm]\n        AN1 --> FF1[Feed Forward]\n        FF1 --> AN2[Add & Norm]\n        AN2 -- Nx --- AN2\n    end",
     "source": "attention-is-all-you-need",
     "title": "3 Model Architecture",
     "heading_path": [
@@ -71,8 +114,22 @@
     "section_id": "919eaf41753aac65fe9d04baa3ef99e5bd450ce4427f3efb25c2098372026dee"
   },
   {
-    "chunk_id": 5,
-    "content": "**Encoder:** The encoder is composed of a stack of $N = 6$ identical layers. Each layer has two sub-layers. The first is a multi-head self-attention mechanism, and the second is a simple, position-wise fully connected feed-forward network. We employ a residual connection [11] around each of the two sub-layers, followed by layer normalization [1]. That is, the output of each sub-layer is $LayerNorm(x + Sublayer(x))$, where $Sublayer(x)$ is the function implemented by the sub-layer itself. To facilitate these residual connections, all sub-layers in the model, as well as the embedding layers, produce outputs of dimension $d_{model} = 512$.\n\n**Decoder:** The decoder is also composed of a stack of $N = 6$ identical layers. In addition to the two sub-layers in each encoder layer, the decoder inserts a third sub-layer, which performs multi-head attention over the output of the encoder stack. Similar to the encoder, we employ residual connections around each of the sub-layers, followed by layer normalization. We also modify the self-attention sub-layer in the decoder stack to prevent positions from attending to subsequent positions. This masking, combined with fact that the output embeddings are offset by one position, ensures that the predictions for position $i$ can depend only on the known outputs at positions less than $i$.",
+    "chunk_id": 8,
+    "content": "subgraph Decoder [Decoder Stack]\n        direction BT\n        Out[Outputs shifted right] --> OutEmb[Output Embedding]\n        OutEmb --> AddPos2((+))\n        PosEnc2[Positional Encoding] --> AddPos2\n        AddPos2 --> MMHA[Masked Multi-Head Attention]\n        MMHA --> AN3[Add & Norm]\n        AN3 --> MHA2[Multi-Head Attention]\n        AN1 -.-> MHA2\n        MHA2 --> AN4[Add & Norm]\n        AN4 --> FF2[Feed Forward]\n        FF2 --> AN5[Add & Norm]\n        AN5 -- Nx --- AN5\n    end\n\nAN5 --> Linear[Linear]\n    Linear --> Softmax[Softmax]\n    Softmax --> Prob[Output Probabilities]\n```\n\nFigure 1: The Transformer - model architecture.\n\nThe Transformer follows this overall architecture using stacked self-attention and point-wise, fully connected layers for both the encoder and decoder, shown in the left and right halves of Figure 1, respectively.",
+    "source": "attention-is-all-you-need",
+    "title": "3 Model Architecture",
+    "heading_path": [
+      "3 Model Architecture"
+    ],
+    "page": 3,
+    "contains_image": false,
+    "contains_table": false,
+    "contains_formulas": true,
+    "section_id": "919eaf41753aac65fe9d04baa3ef99e5bd450ce4427f3efb25c2098372026dee"
+  },
+  {
+    "chunk_id": 9,
+    "content": "**Encoder:** The encoder is composed of a stack of $N = 6$ identical layers. Each layer has two sub-layers. The first is a multi-head self-attention mechanism, and the second is a simple, position-wise fully connected feed-forward network. We employ a residual connection [11] around each of the two sub-layers, followed by layer normalization [1]. That is, the output of each sub-layer is $\\text{LayerNorm}(x + \\text{Sublayer}(x))$, where $\\text{Sublayer}(x)$ is the function implemented by the sub-layer itself. To facilitate these residual connections, all sub-layers in the model, as well as the embedding layers, produce outputs of dimension $d_{\\text{model}} = 512$.",
     "source": "attention-is-all-you-need",
     "title": "3.1 Encoder and Decoder Stacks",
     "heading_path": [
@@ -86,8 +143,23 @@
     "section_id": "3fb128eb0b47082b8dc59ecdf3be904e8636e14c5f3788d2cbad55d3b8b9fa4b"
   },
   {
-    "chunk_id": 6,
-    "content": "An attention function can be described as mapping a query and a set of key-value pairs to an output, where the query, keys, values, and output are all vectors. The output is computed as a weighted sum\n```mermaid\ngraph TD\n    subgraph \"Scaled Dot-Product Attention\"\n        V1[V] --> MatMul2[MatMul]\n        K1[K] --> MatMul1[MatMul]\n        Q1[Q] --> MatMul1\n        MatMul1 --> Scale[Scale]\n        Scale --> Mask[Mask opt.]\n        Mask --> SoftMax[SoftMax]\n        SoftMax --> MatMul2\n        MatMul2 --> Out1[ ]\n    end\n\nsubgraph \"Multi-Head Attention\"\n        V2[V] --> Linear1[Linear]\n        K2[K] --> Linear2[Linear]\n        Q2[Q] --> Linear3[Linear]\n        Linear1 --> SDPA[Scaled Dot-Product Attention]\n        Linear2 --> SDPA\n        Linear3 --> SDPA\n        SDPA --> Concat[Concat]\n        Concat --> Linear4[Linear]\n        Linear4 --> Out2[ ]\n\nSDPA_stack[ ] --- SDPA\n        style SDPA_stack fill:none,stroke:none\n        SDPA_stack -- h --- SDPA\n    end\n```\n\nFigure 2: (left) Scaled Dot-Product Attention. (right) Multi-Head Attention consists of several attention layers running in parallel.\n\nof the values, where the weight assigned to each value is computed by a compatibility function of the query with the corresponding key.",
+    "chunk_id": 10,
+    "content": "**Decoder:** The decoder is also composed of a stack of $N = 6$ identical layers. In addition to the two sub-layers in each encoder layer, the decoder inserts a third sub-layer, which performs multi-head attention over the output of the encoder stack. Similar to the encoder, we employ residual connections around each of the sub-layers, followed by layer normalization. We also modify the self-attention sub-layer in the decoder stack to prevent positions from attending to subsequent positions. This masking, combined with fact that the output embeddings are offset by one position, ensures that the predictions for position $i$ can depend only on the known outputs at positions less than $i$.",
+    "source": "attention-is-all-you-need",
+    "title": "3.1 Encoder and Decoder Stacks",
+    "heading_path": [
+      "3 Model Architecture",
+      "3.1 Encoder and Decoder Stacks"
+    ],
+    "page": 3,
+    "contains_image": false,
+    "contains_table": false,
+    "contains_formulas": true,
+    "section_id": "3fb128eb0b47082b8dc59ecdf3be904e8636e14c5f3788d2cbad55d3b8b9fa4b"
+  },
+  {
+    "chunk_id": 11,
+    "content": "An attention function can be described as mapping a query and a set of key-value pairs to an output, where the query, keys, values, and output are all vectors. The output is computed as a weighted sum\nScaled Dot-Product Attention              Multi-Head Attention\n\n```mermaid\ngraph TD\n    Q((Q)) --> MatMul1[MatMul]\n    K((K)) --> MatMul1\n    MatMul1 --> Scale[Scale]\n    Scale --> Mask[Mask opt.]\n    Mask --> SoftMax[SoftMax]\n    SoftMax --> MatMul2[MatMul]\n    V((V)) --> MatMul2\n    MatMul2 --> Out[ ]\n    style Out fill:none,stroke:none\n```\n\n```mermaid\ngraph TD\n    V((V)) --> Linear1[Linear]\n    K((K)) --> Linear2[Linear]\n    Q((Q)) --> Linear3[Linear]\n    Linear1 --> SDPA[Scaled Dot-Product Attention]\n    Linear2 --> SDPA\n    Linear3 --> SDPA\n    SDPA -- h --- Concat[Concat]\n    Concat --> Linear4[Linear]\n    Linear4 --> Out[ ]\n    style Out fill:none,stroke:none\n```\n\nFigure 2: (left) Scaled Dot-Product Attention. (right) Multi-Head Attention consists of several attention layers running in parallel.",
     "source": "attention-is-all-you-need",
     "title": "3.2 Attention",
     "heading_path": [
@@ -101,8 +173,23 @@
     "section_id": "a172f5c589452f37692982f5188636ba6de16ac809c34d2773b4e1ccf33dd2d9"
   },
   {
-    "chunk_id": 7,
-    "content": "We call our particular attention \"Scaled Dot-Product Attention\" (Figure 2). The input consists of queries and keys of dimension $d_k$, and values of dimension $d_v$. We compute the dot products of the query with all keys, divide each by $\\sqrt{d_k}$, and apply a softmax function to obtain the weights on the values.\n\nIn practice, we compute the attention function on a set of queries simultaneously, packed together into a matrix $Q$. The keys and values are also packed together into matrices $K$ and $V$. We compute the matrix of outputs as:\n\n$$ \\text{Attention}(Q, K, V) = \\text{softmax}(\\frac{QK^T}{\\sqrt{d_k}})V \\tag{1} $$\n\nThe two most commonly used attention functions are additive attention [2], and dot-product (multiplicative) attention. Dot-product attention is identical to our algorithm, except for the scaling factor of $\\frac{1}{\\sqrt{d_k}}$. Additive attention computes the compatibility function using a feed-forward network with a single hidden layer. While the two are similar in theoretical complexity, dot-product attention is much faster and more space-efficient in practice, since it can be implemented using highly optimized matrix multiplication code.\n\nWhile for small values of $d_k$ the two mechanisms perform similarly, additive attention outperforms dot product attention without scaling for larger values of $d_k$ [3]. We suspect that for large values of $d_k$, the dot products grow large in magnitude, pushing the softmax function into regions where it has extremely small gradients<sup>4</sup>. To counteract this effect, we scale the dot products by $\\frac{1}{\\sqrt{d_k}}$.",
+    "chunk_id": 12,
+    "content": "of the values, where the weight assigned to each value is computed by a compatibility function of the query with the corresponding key.",
+    "source": "attention-is-all-you-need",
+    "title": "3.2 Attention",
+    "heading_path": [
+      "3 Model Architecture",
+      "3.2 Attention"
+    ],
+    "page": 4,
+    "contains_image": false,
+    "contains_table": false,
+    "contains_formulas": false,
+    "section_id": "a172f5c589452f37692982f5188636ba6de16ac809c34d2773b4e1ccf33dd2d9"
+  },
+  {
+    "chunk_id": 13,
+    "content": "We call our particular attention \"Scaled Dot-Product Attention\" (Figure 2). The input consists of queries and keys of dimension $d_k$, and values of dimension $d_v$. We compute the dot products of the query with all keys, divide each by $\\sqrt{d_k}$, and apply a softmax function to obtain the weights on the values.\n\nIn practice, we compute the attention function on a set of queries simultaneously, packed together into a matrix $Q$. The keys and values are also packed together into matrices $K$ and $V$. We compute the matrix of outputs as:\n\n$$ \\text{Attention}(Q, K, V) = \\text{softmax}(\\frac{QK^T}{\\sqrt{d_k}})V \\eqno(1) $$\n\nThe two most commonly used attention functions are additive attention [2], and dot-product (multiplicative) attention. Dot-product attention is identical to our algorithm, except for the scaling factor of $\\frac{1}{\\sqrt{d_k}}$. Additive attention computes the compatibility function using a feed-forward network with a single hidden layer. While the two are similar in theoretical complexity, dot-product attention is much faster and more space-efficient in practice, since it can be implemented using highly optimized matrix multiplication code.",
     "source": "attention-is-all-you-need",
     "title": "3.2.1 Scaled Dot-Product Attention",
     "heading_path": [
@@ -117,8 +204,24 @@
     "section_id": "d96faee413394edcfc362520b3e91bea6623b4d43d9c5c77eaf5ca2fedc40cef"
   },
   {
-    "chunk_id": 8,
-    "content": "Instead of performing a single attention function with $d_{\\text{model}}$-dimensional keys, values and queries, we found it beneficial to linearly project the queries, keys and values $h$ times with different, learned linear projections to $d_k$, $d_k$ and $d_v$ dimensions, respectively. On each of these projected versions of queries, keys and values we then perform the attention function in parallel, yielding $d_v$-dimensional\n\n<sup>4</sup>To illustrate why the dot products get large, assume that the components of $q$ and $k$ are independent random variables with mean 0 and variance 1. Then their dot product, $q \\cdot k = \\sum_{i=1}^{d_k} q_i k_i$, has mean 0 and variance $d_k$.\noutput values. These are concatenated and once again projected, resulting in the final values, as depicted in Figure 2.\n\nMulti-head attention allows the model to jointly attend to information from different representation subspaces at different positions. With a single attention head, averaging inhibits this.\n\n$$ \\text{MultiHead}(Q, K, V) = \\text{Concat}(\\text{head}_1, ..., \\text{head}_h)W^O $$\n$$ \\text{where head}_i = \\text{Attention}(QW_i^Q, KW_i^K, VW_i^V) $$\n\nWhere the projections are parameter matrices $W_i^Q \\in \\mathbb{R}^{d_{\\text{model}} \\times d_k}$, $W_i^K \\in \\mathbb{R}^{d_{\\text{model}} \\times d_k}$, $W_i^V \\in \\mathbb{R}^{d_{\\text{model}} \\times d_v}$ and $W^O \\in \\mathbb{R}^{hd_v \\times d_{\\text{model}}}$.\n\nIn this work we employ $h = 8$ parallel attention layers, or heads. For each of these we use $d_k = d_v = d_{\\text{model}}/h = 64$. Due to the reduced dimension of each head, the total computational cost is similar to that of single-head attention with full dimensionality.",
+    "chunk_id": 14,
+    "content": "While for small values of $d_k$ the two mechanisms perform similarly, additive attention outperforms dot product attention without scaling for larger values of $d_k$ [3]. We suspect that for large values of $d_k$, the dot products grow large in magnitude, pushing the softmax function into regions where it has extremely small gradients<sup>4</sup>. To counteract this effect, we scale the dot products by $\\frac{1}{\\sqrt{d_k}}$.",
+    "source": "attention-is-all-you-need",
+    "title": "3.2.1 Scaled Dot-Product Attention",
+    "heading_path": [
+      "3 Model Architecture",
+      "3.2 Attention",
+      "3.2.1 Scaled Dot-Product Attention"
+    ],
+    "page": 4,
+    "contains_image": false,
+    "contains_table": false,
+    "contains_formulas": true,
+    "section_id": "d96faee413394edcfc362520b3e91bea6623b4d43d9c5c77eaf5ca2fedc40cef"
+  },
+  {
+    "chunk_id": 15,
+    "content": "Instead of performing a single attention function with $d_{\\text{model}}$-dimensional keys, values and queries, we found it beneficial to linearly project the queries, keys and values $h$ times with different, learned linear projections to $d_k$, $d_k$ and $d_v$ dimensions, respectively. On each of these projected versions of queries, keys and values we then perform the attention function in parallel, yielding $d_v$-dimensional\n\n<sup>4</sup>To illustrate why the dot products get large, assume that the components of $q$ and $k$ are independent random variables with mean 0 and variance 1. Then their dot product, $q \\cdot k = \\sum_{i=1}^{d_k} q_i k_i$, has mean 0 and variance $d_k$.\noutput values. These are concatenated and once again projected, resulting in the final values, as depicted in Figure 2.\n\nMulti-head attention allows the model to jointly attend to information from different representation subspaces at different positions. With a single attention head, averaging inhibits this.\n\n$$ \\text{MultiHead}(Q, K, V) = \\text{Concat}(\\text{head}_1, ..., \\text{head}_h)W^O $$\n$$ \\text{where head}_i = \\text{Attention}(QW_i^Q, KW_i^K, VW_i^V) $$",
     "source": "attention-is-all-you-need",
     "title": "3.2.2 Multi-Head Attention",
     "heading_path": [
@@ -133,7 +236,23 @@
     "section_id": "03c6a88892f04db768aefdd0c95ac791ae8528a8dbfbbd496d0b16308bc61f73"
   },
   {
-    "chunk_id": 9,
+    "chunk_id": 16,
+    "content": "Where the projections are parameter matrices $W_i^Q \\in \\mathbb{R}^{d_{\\text{model}} \\times d_k}$, $W_i^K \\in \\mathbb{R}^{d_{\\text{model}} \\times d_k}$, $W_i^V \\in \\mathbb{R}^{d_{\\text{model}} \\times d_v}$ and $W^O \\in \\mathbb{R}^{hd_v \\times d_{\\text{model}}}$.\n\nIn this work we employ $h = 8$ parallel attention layers, or heads. For each of these we use $d_k = d_v = d_{\\text{model}}/h = 64$. Due to the reduced dimension of each head, the total computational cost is similar to that of single-head attention with full dimensionality.",
+    "source": "attention-is-all-you-need",
+    "title": "3.2.2 Multi-Head Attention",
+    "heading_path": [
+      "3 Model Architecture",
+      "3.2 Attention",
+      "3.2.2 Multi-Head Attention"
+    ],
+    "page": 5,
+    "contains_image": false,
+    "contains_table": false,
+    "contains_formulas": true,
+    "section_id": "03c6a88892f04db768aefdd0c95ac791ae8528a8dbfbbd496d0b16308bc61f73"
+  },
+  {
+    "chunk_id": 17,
     "content": "The Transformer uses multi-head attention in three different ways:\n\n* In \"encoder-decoder attention\" layers, the queries come from the previous decoder layer, and the memory keys and values come from the output of the encoder. This allows every position in the decoder to attend over all positions in the input sequence. This mimics the typical encoder-decoder attention mechanisms in sequence-to-sequence models such as [38, 2, 9].\n\n* The encoder contains self-attention layers. In a self-attention layer all of the keys, values and queries come from the same place, in this case, the output of the previous layer in the encoder. Each position in the encoder can attend to all positions in the previous layer of the encoder.\n\n* Similarly, self-attention layers in the decoder allow each position in the decoder to attend to all positions in the decoder up to and including that position. We need to prevent leftward information flow in the decoder to preserve the auto-regressive property. We implement this inside of scaled dot-product attention by masking out (setting to $-\\infty$) all values in the input of the softmax which correspond to illegal connections. See Figure 2.",
     "source": "attention-is-all-you-need",
     "title": "3.2.3 Applications of Attention in our Model",
@@ -149,7 +268,7 @@
     "section_id": "e45dd78a5ff2b473f57ef99011a60091b44431ed4463ef920155cea978c063b9"
   },
   {
-    "chunk_id": 10,
+    "chunk_id": 18,
     "content": "In addition to attention sub-layers, each of the layers in our encoder and decoder contains a fully connected feed-forward network, which is applied to each position separately and identically. This consists of two linear transformations with a ReLU activation in between.\n\n$$ \\text{FFN}(x) = \\max(0, xW_1 + b_1)W_2 + b_2 \\tag{2} $$\n\nWhile the linear transformations are the same across different positions, they use different parameters from layer to layer. Another way of describing this is as two convolutions with kernel size 1. The dimensionality of input and output is $d_{\\text{model}} = 512$, and the inner-layer has dimensionality $d_{ff} = 2048$.",
     "source": "attention-is-all-you-need",
     "title": "3.3 Position-wise Feed-Forward Networks",
@@ -165,8 +284,24 @@
     "section_id": "d5ce5139f0779e74e10b91a1e0a36bf4508c3fb8babc54392bff826a0ed908df"
   },
   {
-    "chunk_id": 11,
-    "content": "Similarly to other sequence transduction models, we use learned embeddings to convert the input tokens and output tokens to vectors of dimension $d_{\\text{model}}$. We also use the usual learned linear transformation and softmax function to convert the decoder output to predicted next-token probabilities. In our model, we share the same weight matrix between the two embedding layers and the pre-softmax linear transformation, similar to [30]. In the embedding layers, we multiply those weights by $\\sqrt{d_{\\text{model}}}$.\nTable 1: Maximum path lengths, per-layer complexity and minimum number of sequential operations for different layer types. $n$ is the sequence length, $d$ is the representation dimension, $k$ is the kernel size of convolutions and $r$ the size of the neighborhood in restricted self-attention.\n\n<table><thead><tr><th>Layer Type</th><th>Complexity per Layer</th><th>Sequential Operations</th><th>Maximum Path Length</th></tr></thead><tbody><tr><td>Self-Attention</td><td>$O(n^2 \\cdot d)$</td><td>$O(1)$</td><td>$O(1)$</td></tr><tr><td>Recurrent</td><td>$O(n \\cdot d^2)$</td><td>$O(n)$</td><td>$O(n)$</td></tr><tr><td>Convolutional</td><td>$O(k \\cdot n \\cdot d^2)$</td><td>$O(1)$</td><td>$O(log_k(n))$</td></tr><tr><td>Self-Attention (restricted)</td><td>$O(r \\cdot n \\cdot d)$</td><td>$O(1)$</td><td>$O(n/r)$</td></tr></tbody></table>",
+    "chunk_id": 19,
+    "content": "Similarly to other sequence transduction models, we use learned embeddings to convert the input tokens and output tokens to vectors of dimension $d_{\\text{model}}$. We also use the usual learned linear transformation and softmax function to convert the decoder output to predicted next-token probabilities. In our model, we share the same weight matrix between the two embedding layers and the pre-softmax linear transformation, similar to [30]. In the embedding layers, we multiply those weights by $\\sqrt{d_{\\text{model}}}$.\nTable 1: Maximum path lengths, per-layer complexity and minimum number of sequential operations for different layer types. $n$ is the sequence length, $d$ is the representation dimension, $k$ is the kernel size of convolutions and $r$ the size of the neighborhood in restricted self-attention.",
+    "source": "attention-is-all-you-need",
+    "title": "3.4 Embeddings and Softmax",
+    "heading_path": [
+      "3 Model Architecture",
+      "3.2 Attention",
+      "3.4 Embeddings and Softmax"
+    ],
+    "page": 6,
+    "contains_image": false,
+    "contains_table": false,
+    "contains_formulas": true,
+    "section_id": "9876fe059189e1e3c96d3fefcd643ffb9f0f859eadd0617098637882567b188d"
+  },
+  {
+    "chunk_id": 20,
+    "content": "<table><thead><tr><th>Layer Type</th><th>Complexity per Layer</th><th>Sequential Operations</th><th>Maximum Path Length</th></tr></thead><tbody><tr><td>Self-Attention</td><td>$O(n^2 \\cdot d)$</td><td>$O(1)$</td><td>$O(1)$</td></tr><tr><td>Recurrent</td><td>$O(n \\cdot d^2)$</td><td>$O(n)$</td><td>$O(n)$</td></tr><tr><td>Convolutional</td><td>$O(k \\cdot n \\cdot d^2)$</td><td>$O(1)$</td><td>$O(log_k(n))$</td></tr><tr><td>Self-Attention (restricted)</td><td>$O(r \\cdot n \\cdot d)$</td><td>$O(1)$</td><td>$O(n/r)$</td></tr></tbody></table>",
     "source": "attention-is-all-you-need",
     "title": "3.4 Embeddings and Softmax",
     "heading_path": [
@@ -181,8 +316,8 @@
     "section_id": "9876fe059189e1e3c96d3fefcd643ffb9f0f859eadd0617098637882567b188d"
   },
   {
-    "chunk_id": 12,
-    "content": "Since our model contains no recurrence and no convolution, in order for the model to make use of the order of the sequence, we must inject some information about the relative or absolute position of the tokens in the sequence. To this end, we add \"positional encodings\" to the input embeddings at the bottoms of the encoder and decoder stacks. The positional encodings have the same dimension $d_{\\text{model}}$ as the embeddings, so that the two can be summed. There are many choices of positional encodings, learned and fixed [9].\n\nIn this work, we use sine and cosine functions of different frequencies:\n\n$$PE_{(pos,2i)} = sin(pos/10000^{2i/d_{\\text{model}}})$$\n$$PE_{(pos,2i+1)} = cos(pos/10000^{2i/d_{\\text{model}}})$$\n\nwhere $pos$ is the position and $i$ is the dimension. That is, each dimension of the positional encoding corresponds to a sinusoid. The wavelengths form a geometric progression from $2\\pi$ to $10000 \\cdot 2\\pi$. We chose this function because we hypothesized it would allow the model to easily learn to attend by relative positions, since for any fixed offset $k$, $PE_{pos+k}$ can be represented as a linear function of $PE_{pos}$.\n\nWe also experimented with using learned positional embeddings [9] instead, and found that the two versions produced nearly identical results (see Table 3 row (E)). We chose the sinusoidal version because it may allow the model to extrapolate to sequence lengths longer than the ones encountered during training.",
+    "chunk_id": 21,
+    "content": "Since our model contains no recurrence and no convolution, in order for the model to make use of the order of the sequence, we must inject some information about the relative or absolute position of the tokens in the sequence. To this end, we add \"positional encodings\" to the input embeddings at the bottoms of the encoder and decoder stacks. The positional encodings have the same dimension $d_{\\text{model}}$ as the embeddings, so that the two can be summed. There are many choices of positional encodings, learned and fixed [9].\n\nIn this work, we use sine and cosine functions of different frequencies:\n\n$$ PE_{(pos, 2i)} = sin(pos/10000^{2i/d_{\\text{model}}}) $$\n\n$$ PE_{(pos, 2i+1)} = cos(pos/10000^{2i/d_{\\text{model}}}) $$",
     "source": "attention-is-all-you-need",
     "title": "3.5 Positional Encoding",
     "heading_path": [
@@ -196,35 +331,67 @@
     "section_id": "2669a1a85e496816cc1c4ca9706daab9b090dc76b3670ec13b384ffc30025b84"
   },
   {
-    "chunk_id": 13,
-    "content": "In this section we compare various aspects of self-attention layers to the recurrent and convolutional layers commonly used for mapping one variable-length sequence of symbol representations $(x_1, ..., x_n)$ to another sequence of equal length $(z_1, ..., z_n)$, with $x_i, z_i \\in \\mathbb{R}^d$, such as a hidden layer in a typical sequence transduction encoder or decoder. Motivating our use of self-attention we consider three desiderata.\n\nOne is the total computational complexity per layer. Another is the amount of computation that can be parallelized, as measured by the minimum number of sequential operations required.\n\nThe third is the path length between long-range dependencies in the network. Learning long-range dependencies is a key challenge in many sequence transduction tasks. One key factor affecting the ability to learn such dependencies is the length of the paths forward and backward signals have to traverse in the network. The shorter these paths between any combination of positions in the input and output sequences, the easier it is to learn long-range dependencies [12]. Hence we also compare the maximum path length between any two input and output positions in networks composed of the different layer types.\n\nAs noted in Table 1, a self-attention layer connects all positions with a constant number of sequentially executed operations, whereas a recurrent layer requires $O(n)$ sequential operations. In terms of computational complexity, self-attention layers are faster than recurrent layers when the sequence\nlength $n$ is smaller than the representation dimensionality $d$, which is most often the case with sentence representations used by state-of-the-art models in machine translations, such as word-piece [38] and byte-pair [31] representations. To improve computational performance for tasks involving very long sequences, self-attention could be restricted to considering only a neighborhood of size $r$ in the input sequence centered around the respective output position. This would increase the maximum path length to $O(n/r)$. We plan to investigate this approach further in future work.",
+    "chunk_id": 22,
+    "content": "where $pos$ is the position and $i$ is the dimension. That is, each dimension of the positional encoding corresponds to a sinusoid. The wavelengths form a geometric progression from $2\\pi$ to $10000 \\cdot 2\\pi$. We chose this function because we hypothesized it would allow the model to easily learn to attend by relative positions, since for any fixed offset $k$, $PE_{pos+k}$ can be represented as a linear function of $PE_{pos}$.\n\nWe also experimented with using learned positional embeddings [9] instead, and found that the two versions produced nearly identical results (see Table 3 row (E)). We chose the sinusoidal version because it may allow the model to extrapolate to sequence lengths longer than the ones encountered during training.",
+    "source": "attention-is-all-you-need",
+    "title": "3.5 Positional Encoding",
+    "heading_path": [
+      "3 Model Architecture",
+      "3.5 Positional Encoding"
+    ],
+    "page": 6,
+    "contains_image": false,
+    "contains_table": false,
+    "contains_formulas": true,
+    "section_id": "2669a1a85e496816cc1c4ca9706daab9b090dc76b3670ec13b384ffc30025b84"
+  },
+  {
+    "chunk_id": 23,
+    "content": "In this section we compare various aspects of self-attention layers to the recurrent and convolutional layers commonly used for mapping one variable-length sequence of symbol representations $(x_1, ..., x_n)$ to another sequence of equal length $(z_1, ..., z_n)$, with $x_i, z_i \\in \\mathbb{R}^d$, such as a hidden layer in a typical sequence transduction encoder or decoder. Motivating our use of self-attention we consider three desiderata.\n\nOne is the total computational complexity per layer. Another is the amount of computation that can be parallelized, as measured by the minimum number of sequential operations required.\n\nThe third is the path length between long-range dependencies in the network. Learning long-range dependencies is a key challenge in many sequence transduction tasks. One key factor affecting the ability to learn such dependencies is the length of the paths forward and backward signals have to traverse in the network. The shorter these paths between any combination of positions in the input and output sequences, the easier it is to learn long-range dependencies [12]. Hence we also compare the maximum path length between any two input and output positions in networks composed of the different layer types.",
     "source": "attention-is-all-you-need",
     "title": "4 Why Self-Attention",
     "heading_path": [
+      "3 Model Architecture",
       "4 Why Self-Attention"
     ],
     "page": 6,
     "contains_image": false,
     "contains_table": false,
     "contains_formulas": true,
-    "section_id": "e15485a600ad173693d5d0ce6de708b7290b05498b1511d5b61d26919bce34c3"
+    "section_id": "157faedc7937500a73238b2299ff0b231bc9a761ef9767e3ae2aa249c8a28ee7"
   },
   {
-    "chunk_id": 14,
-    "content": "A single convolutional layer with kernel width $k < n$ does not connect all pairs of input and output positions. Doing so requires a stack of $O(n/k)$ convolutional layers in the case of contiguous kernels, or $O(\\log_k(n))$ in the case of dilated convolutions [18], increasing the length of the longest paths between any two positions in the network. Convolutional layers are generally more expensive than recurrent layers, by a factor of $k$. Separable convolutions [6], however, decrease the complexity considerably, to $O(k \\cdot n \\cdot d + n \\cdot d^2)$. Even with $k = n$, however, the complexity of a separable convolution is equal to the combination of a self-attention layer and a point-wise feed-forward layer, the approach we take in our model.\n\nAs side benefit, self-attention could yield more interpretable models. We inspect attention distributions from our models and present and discuss examples in the appendix. Not only do individual attention heads clearly learn to perform different tasks, many appear to exhibit behavior related to the syntactic and semantic structure of the sentences.",
+    "chunk_id": 24,
+    "content": "As noted in Table 1, a self-attention layer connects all positions with a constant number of sequentially executed operations, whereas a recurrent layer requires $O(n)$ sequential operations. In terms of computational complexity, self-attention layers are faster than recurrent layers when the sequence\nlength $n$ is smaller than the representation dimensionality $d$, which is most often the case with sentence representations used by state-of-the-art models in machine translations, such as word-piece [38] and byte-pair [31] representations. To improve computational performance for tasks involving very long sequences, self-attention could be restricted to considering only a neighborhood of size $r$ in the input sequence centered around the respective output position. This would increase the maximum path length to $O(n/r)$. We plan to investigate this approach further in future work.",
     "source": "attention-is-all-you-need",
     "title": "4 Why Self-Attention",
     "heading_path": [
+      "3 Model Architecture",
       "4 Why Self-Attention"
     ],
     "page": 7,
     "contains_image": false,
     "contains_table": false,
     "contains_formulas": true,
-    "section_id": "e15485a600ad173693d5d0ce6de708b7290b05498b1511d5b61d26919bce34c3"
+    "section_id": "157faedc7937500a73238b2299ff0b231bc9a761ef9767e3ae2aa249c8a28ee7"
   },
   {
-    "chunk_id": 15,
+    "chunk_id": 25,
+    "content": "A single convolutional layer with kernel width $k < n$ does not connect all pairs of input and output positions. Doing so requires a stack of $O(n/k)$ convolutional layers in the case of contiguous kernels, or $O(\\log_k(n))$ in the case of dilated convolutions [18], increasing the length of the longest paths between any two positions in the network. Convolutional layers are generally more expensive than recurrent layers, by a factor of $k$. Separable convolutions [6], however, decrease the complexity considerably, to $O(k \\cdot n \\cdot d + n \\cdot d^2)$. Even with $k = n$, however, the complexity of a separable convolution is equal to the combination of a self-attention layer and a point-wise feed-forward layer, the approach we take in our model.\n\nAs side benefit, self-attention could yield more interpretable models. We inspect attention distributions from our models and present and discuss examples in the appendix. Not only do individual attention heads clearly learn to perform different tasks, many appear to exhibit behavior related to the syntactic and semantic structure of the sentences.",
+    "source": "attention-is-all-you-need",
+    "title": "4 Why Self-Attention",
+    "heading_path": [
+      "3 Model Architecture",
+      "4 Why Self-Attention"
+    ],
+    "page": 7,
+    "contains_image": false,
+    "contains_table": false,
+    "contains_formulas": true,
+    "section_id": "157faedc7937500a73238b2299ff0b231bc9a761ef9767e3ae2aa249c8a28ee7"
+  },
+  {
+    "chunk_id": 26,
     "content": "This section describes the training regime for our models.",
     "source": "attention-is-all-you-need",
     "title": "5 Training",
@@ -238,7 +405,7 @@
     "section_id": "ed5589083e3dff3c208729045607fd27e441e51388921c57580425a61f6e1c5d"
   },
   {
-    "chunk_id": 16,
+    "chunk_id": 27,
     "content": "We trained on the standard WMT 2014 English-German dataset consisting of about 4.5 million sentence pairs. Sentences were encoded using byte-pair encoding [3], which has a shared source-target vocabulary of about 37000 tokens. For English-French, we used the significantly larger WMT 2014 English-French dataset consisting of 36M sentences and split tokens into a 32000 word-piece vocabulary [38]. Sentence pairs were batched together by approximate sequence length. Each training batch contained a set of sentence pairs containing approximately 25000 source tokens and 25000 target tokens.",
     "source": "attention-is-all-you-need",
     "title": "5.1 Training Data and Batching",
@@ -253,7 +420,7 @@
     "section_id": "b28acb88aa7a2e307aab5f0357e07060bc4b37b27ddc05702cf7fd4d78c0d3d1"
   },
   {
-    "chunk_id": 17,
+    "chunk_id": 28,
     "content": "We trained our models on one machine with 8 NVIDIA P100 GPUs. For our base models using the hyperparameters described throughout the paper, each training step took about 0.4 seconds. We trained the base models for a total of 100,000 steps or 12 hours. For our big models, (described on the bottom line of table 3), step time was 1.0 seconds. The big models were trained for 300,000 steps (3.5 days).",
     "source": "attention-is-all-you-need",
     "title": "5.2 Hardware and Schedule",
@@ -268,8 +435,8 @@
     "section_id": "87fd9067f918971900d201601ca1e1a0aea64d1ae4b19d35c40e6f5e074e8d80"
   },
   {
-    "chunk_id": 18,
-    "content": "We used the Adam optimizer [20] with $\\beta_1 = 0.9$, $\\beta_2 = 0.98$ and $\\epsilon = 10^{-9}$. We varied the learning rate over the course of training, according to the formula:\n\n$$ lrate = d_{\\text{model}}^{-0.5} \\cdot \\min(step\\_num^{-0.5}, step\\_num \\cdot warmup\\_steps^{-1.5}) $$ (3)\n\nThis corresponds to increasing the learning rate linearly for the first $warmup\\_steps$ training steps, and decreasing it thereafter proportionally to the inverse square root of the step number. We used $warmup\\_steps = 4000$.",
+    "chunk_id": 29,
+    "content": "We used the Adam optimizer [20] with $\\beta_1 = 0.9$, $\\beta_2 = 0.98$ and $\\epsilon = 10^{-9}$. We varied the learning rate over the course of training, according to the formula:\n\n$$ lrate = d_{\\text{model}}^{-0.5} \\cdot \\min(step\\_num^{-0.5}, step\\_num \\cdot warmup\\_steps^{-1.5}) \\qquad (3) $$\n\nThis corresponds to increasing the learning rate linearly for the first $warmup\\_steps$ training steps, and decreasing it thereafter proportionally to the inverse square root of the step number. We used $warmup\\_steps = 4000$.",
     "source": "attention-is-all-you-need",
     "title": "5.3 Optimizer",
     "heading_path": [
@@ -283,7 +450,7 @@
     "section_id": "05130603889a5158bf0ef0474eba50e891449b3c6bf2fa72b47509df0b73a40f"
   },
   {
-    "chunk_id": 19,
+    "chunk_id": 30,
     "content": "We employ three types of regularization during training:\nTable 2: The Transformer achieves better BLEU scores than previous state-of-the-art models on the English-to-German and English-to-French newstest2014 tests at a fraction of the training cost.",
     "source": "attention-is-all-you-need",
     "title": "5.4 Regularization",
@@ -298,8 +465,8 @@
     "section_id": "42a9e7c8c7091dd1c136cb099ab841be3dba59ac4cf54ea518974cfc01b8e7b3"
   },
   {
-    "chunk_id": 20,
-    "content": "<table><thead><tr><th rowspan=\"2\">Model</th><th colspan=\"2\">BLEU</th><th colspan=\"2\">Training Cost (FLOPs)</th></tr><tr><th>EN-DE</th><th>EN-FR</th><th>EN-DE</th><th>EN-FR</th></tr></thead><tbody><tr><td>ByteNet [18]</td><td>23.75</td><td> </td><td> </td><td> </td></tr><tr><td>Deep-Att + PosUnk [39]</td><td> </td><td>39.2</td><td> </td><td>1.0 \u00b7 10\u00b2\u2070</td></tr><tr><td>GNMT + RL [38]</td><td>24.6</td><td>39.92</td><td>2.3 \u00b7 10\u00b9\u2079</td><td>1.4 \u00b7 10\u00b2\u2070</td></tr><tr><td>ConvS2S [9]</td><td>25.16</td><td>40.46</td><td>9.6 \u00b7 10\u00b9\u2078</td><td>1.5 \u00b7 10\u00b2\u2070</td></tr><tr><td>MoE [32]</td><td>26.03</td><td>40.56</td><td>2.0 \u00b7 10\u00b9\u2079</td><td>1.2 \u00b7 10\u00b2\u2070</td></tr><tr><td>Deep-Att + PosUnk Ensemble [39]</td><td> </td><td>40.4</td><td> </td><td>8.0 \u00b7 10\u00b2\u2070</td></tr><tr><td>GNMT + RL Ensemble [38]</td><td>26.30</td><td>41.16</td><td>1.8 \u00b7 10\u00b2\u2070</td><td>1.1 \u00b7 10\u00b2\u00b9</td></tr><tr><td>ConvS2S Ensemble [9]</td><td>26.36</td><td>41.29</td><td>7.7 \u00b7 10\u00b9\u2079</td><td>1.2 \u00b7 10\u00b2\u00b9</td></tr><tr><td>Transformer (base",
+    "chunk_id": 31,
+    "content": "<table><thead><tr><th rowspan=\"2\">Model</th><th colspan=\"2\">BLEU</th><th colspan=\"2\">Training Cost (FLOPs)</th></tr><tr><th>EN-DE</th><th>EN-FR</th><th>EN-DE</th><th>EN-FR</th></tr></thead><tbody><tr><td>ByteNet [18]</td><td>23.75</td><td> </td><td> </td><td> </td></tr><tr><td>Deep-Att + PosUnk [39]</td><td> </td><td>39.2</td><td> </td><td>1.0 \u00b7 10\u00b2\u2070</td></tr><tr><td>GNMT + RL [38]</td><td>24.6</td><td>39.92</td><td>2.3 \u00b7 10\u00b9\u2079</td><td>1.4 \u00b7 10\u00b2\u2070</td></tr><tr><td>ConvS2S [9]</td><td>25.16</td><td>40.46</td><td>9.6 \u00b7 10\u00b9\u2078</td><td>1.5 \u00b7 10\u00b2\u2070</td></tr><tr><td>MoE",
     "source": "attention-is-all-you-need",
     "title": "5.4 Regularization",
     "heading_path": [
@@ -313,8 +480,8 @@
     "section_id": "42a9e7c8c7091dd1c136cb099ab841be3dba59ac4cf54ea518974cfc01b8e7b3"
   },
   {
-    "chunk_id": 21,
-    "content": "model)</td><td>27.3</td><td>38.1</td><td colspan=\"2\"><strong>3.3 \u00b7 10\u00b9\u2078</strong></td></tr><tr><td>Transformer (big)</td><td><strong>28.4</strong></td><td><strong>41.8</strong></td><td colspan=\"2\">2.3 \u00b7 10\u00b9\u2079</td></tr></tbody></table>\n\n**Residual Dropout** We apply dropout [33] to the output of each sub-layer, before it is added to the sub-layer input and normalized. In addition, we apply dropout to the sums of the embeddings and the positional encodings in both the encoder and decoder stacks. For the base model, we use a rate of $P_{drop} = 0.1$.\n\n**Label Smoothing** During training, we employed label smoothing of value $\\epsilon_{ls} = 0.1$ [36]. This hurts perplexity, as the model learns to be more unsure, but improves accuracy and BLEU score.",
+    "chunk_id": 32,
+    "content": "[32]</td><td>26.03</td><td>40.56</td><td>2.0 \u00b7 10\u00b9\u2079</td><td>1.2 \u00b7 10\u00b2\u2070</td></tr><tr><td>Deep-Att + PosUnk Ensemble [39]</td><td> </td><td>40.4</td><td> </td><td>8.0 \u00b7 10\u00b2\u2070</td></tr><tr><td>GNMT + RL Ensemble [38]</td><td>26.30</td><td>41.16</td><td>1.8 \u00b7 10\u00b2\u2070</td><td>1.1 \u00b7 10\u00b2\u00b9</td></tr><tr><td>ConvS2S Ensemble [9]</td><td>26.36</td><td>41.29</td><td>7.7 \u00b7 10\u00b9\u2079</td><td>1.2 \u00b7 10\u00b2\u00b9</td></tr><tr><td>Transformer (base model)</td><td>27.3</td><td>38.1</td><td><strong>3.3 \u00b7 10\u00b9\u2078</strong></td><td> </td></tr><tr><td>Transformer",
     "source": "attention-is-all-you-need",
     "title": "5.4 Regularization",
     "heading_path": [
@@ -328,8 +495,23 @@
     "section_id": "42a9e7c8c7091dd1c136cb099ab841be3dba59ac4cf54ea518974cfc01b8e7b3"
   },
   {
-    "chunk_id": 22,
-    "content": "On the WMT 2014 English-to-German translation task, the big transformer model (Transformer (big) in Table 2) outperforms the best previously reported models (including ensembles) by more than 2.0 BLEU, establishing a new state-of-the-art BLEU score of 28.4. The configuration of this model is listed in the bottom line of Table 3. Training took 3.5 days on 8 P100 GPUs. Even our base model surpasses all previously published models and ensembles, at a fraction of the training cost of any of the competitive models.\n\nOn the WMT 2014 English-to-French translation task, our big model achieves a BLEU score of 41.0, outperforming all of the previously published single models, at less than 1/4 the training cost of the previous state-of-the-art model. The Transformer (big) model trained for English-to-French used dropout rate $P_{drop} = 0.1$, instead of 0.3.\n\nFor the base models, we used a single model obtained by averaging the last 5 checkpoints, which were written at 10-minute intervals. For the big models, we averaged the last 20 checkpoints. We used beam search with a beam size of 4 and length penalty $\\alpha = 0.6$ [38]. These hyperparameters were chosen after experimentation on the development set. We set the maximum output length during inference to input length + 50, but terminate early when possible [38].\n\nTable 2 summarizes our results and compares our translation quality and training costs to other model architectures from the literature. We estimate the number of floating point operations used to train a model by multiplying the training time, the number of GPUs used, and an estimate of the sustained single-precision floating-point capacity of each GPU<sup>5</sup>.",
+    "chunk_id": 33,
+    "content": "(big)</td><td><strong>28.4</strong></td><td><strong>41.8</strong></td><td>2.3 \u00b7 10\u00b9\u2079</td><td> </td></tr></tbody></table>\n\n**Residual Dropout** We apply dropout [33] to the output of each sub-layer, before it is added to the sub-layer input and normalized. In addition, we apply dropout to the sums of the embeddings and the positional encodings in both the encoder and decoder stacks. For the base model, we use a rate of $P_{drop} = 0.1$.\n\n**Label Smoothing** During training, we employed label smoothing of value $\\epsilon_{ls} = 0.1$ [36]. This hurts perplexity, as the model learns to be more unsure, but improves accuracy and BLEU score.",
+    "source": "attention-is-all-you-need",
+    "title": "5.4 Regularization",
+    "heading_path": [
+      "5 Training",
+      "5.4 Regularization"
+    ],
+    "page": 8,
+    "contains_image": false,
+    "contains_table": true,
+    "contains_formulas": true,
+    "section_id": "42a9e7c8c7091dd1c136cb099ab841be3dba59ac4cf54ea518974cfc01b8e7b3"
+  },
+  {
+    "chunk_id": 34,
+    "content": "On the WMT 2014 English-to-German translation task, the big transformer model (Transformer (big) in Table 2) outperforms the best previously reported models (including ensembles) by more than 2.0 BLEU, establishing a new state-of-the-art BLEU score of 28.4. The configuration of this model is listed in the bottom line of Table 3. Training took 3.5 days on 8 P100 GPUs. Even our base model surpasses all previously published models and ensembles, at a fraction of the training cost of any of the competitive models.\n\nOn the WMT 2014 English-to-French translation task, our big model achieves a BLEU score of 41.0, outperforming all of the previously published single models, at less than 1/4 the training cost of the previous state-of-the-art model. The Transformer (big) model trained for English-to-French used dropout rate $P_{drop} = 0.1$, instead of 0.3.\n\nFor the base models, we used a single model obtained by averaging the last 5 checkpoints, which were written at 10-minute intervals. For the big models, we averaged the last 20 checkpoints. We used beam search with a beam size of 4 and length penalty $\\alpha = 0.6$ [38]. These hyperparameters were chosen after experimentation on the development set. We set the maximum output length during inference to input length + 50, but terminate early when possible [38].",
     "source": "attention-is-all-you-need",
     "title": "6.1 Machine Translation",
     "heading_path": [
@@ -343,7 +525,22 @@
     "section_id": "8707a448bc9e142c9c16b1b5b7b3f9f443e682f7e580326c8244d428dee0c90b"
   },
   {
-    "chunk_id": 23,
+    "chunk_id": 35,
+    "content": "Table 2 summarizes our results and compares our translation quality and training costs to other model architectures from the literature. We estimate the number of floating point operations used to train a model by multiplying the training time, the number of GPUs used, and an estimate of the sustained single-precision floating-point capacity of each GPU<sup>5</sup>.",
+    "source": "attention-is-all-you-need",
+    "title": "6.1 Machine Translation",
+    "heading_path": [
+      "6 Results",
+      "6.1 Machine Translation"
+    ],
+    "page": 8,
+    "contains_image": false,
+    "contains_table": false,
+    "contains_formulas": true,
+    "section_id": "8707a448bc9e142c9c16b1b5b7b3f9f443e682f7e580326c8244d428dee0c90b"
+  },
+  {
+    "chunk_id": 36,
     "content": "To evaluate the importance of different components of the Transformer, we varied our base model in different ways, measuring the change in performance on English-to-German translation on the\n\n<sup>5</sup>We used values of 2.8, 3.7, 6.0 and 9.5 TFLOPS for K80, K40, M40 and P100, respectively.\nTable 3: Variations on the Transformer architecture. Unlisted values are identical to those of the base model. All metrics are on the English-to-German translation development set, newstest2013. Listed perplexities are per-wordpiece, according to our byte-pair encoding, and should not be compared to per-word perplexities.",
     "source": "attention-is-all-you-need",
     "title": "6.2 Model Variations",
@@ -358,8 +555,8 @@
     "section_id": "65431d0e3170996d044e7beb47e71f32af4f0d00f62e827b5bd9c843c026a0ed"
   },
   {
-    "chunk_id": 24,
-    "content": "<table><thead><tr><th> </th><th>N</th><th>d<sub>model</sub></th><th>d<sub>ff</sub></th><th>h</th><th>d<sub>k</sub></th><th>d<sub>v</sub></th><th>P<sub>drop</sub></th><th>\u03f5<sub>ls</sub></th><th>train steps</th><th>PPL (dev)</th><th>BLEU (dev)</th><th>params \u00d710<sup>6</sup></th></tr></thead><tbody><tr><td>base</td><td>6</td><td>512</td><td>2048</td><td>8</td><td>64</td><td>64</td><td>0.1</td><td>0.1</td><td>100K</td><td>4.92</td><td>25.8</td><td>65</td></tr><tr><td rowspan=\"4\">(A)</td><td> </td><td> </td><td> </td><td>1</td><td>512</td><td>512</td><td> </td><td> </td><td> </td><td>5.29</td><td>24.9</td></tr><tr><td> </td><td> </td><td>4</td><td>128</td><td>128</td><td> </td><td> </td><td> </td><td>5.00</td><td>25.5</td><td> </td><td></td></tr><tr><td> </td><td> </td><td>16</td><td>32</td><td>32</td><td> </td><td> </td><td> </td><td>4.91</td><td>25.8</td><td> </td><td></td></tr><tr><td> </td><td> </td><td>32</td><td>16</td><td>16</td><td> </td><td> </td><td> </td><td>5.01</td><td>25.4</td><td> </td><td></td></tr><tr><td",
+    "chunk_id": 37,
+    "content": "<table><thead><tr><th> </th><th>N</th><th>d<sub>model</sub></th><th>d<sub>ff</sub></th><th>h</th><th>d<sub>k</sub></th><th>d<sub>v</sub></th><th>P<sub>drop</sub></th><th>\u03f5<sub>ls</sub></th><th>train steps</th><th>PPL (dev)</th><th>BLEU (dev)</th><th>params \u00d710<sup>6</sup></th></tr></thead><tbody><tr><td>base</td><td>6</td><td>512</td><td>2048</td><td>8</td><td>64</td><td>64</td><td>0.1</td><td>0.1</td><td>100K</td><td>4.92</td><td>25.8</td><td>65</td></tr><tr><td rowspan=\"4\">(A)</td><td> </td><td> </td><td> </td><td>1</td><td>512</td><td>512</td><td> </td><td> </td><td>",
     "source": "attention-is-all-you-need",
     "title": "6.2 Model Variations",
     "heading_path": [
@@ -373,8 +570,8 @@
     "section_id": "65431d0e3170996d044e7beb47e71f32af4f0d00f62e827b5bd9c843c026a0ed"
   },
   {
-    "chunk_id": 25,
-    "content": "rowspan=\"2\">(B)</td><td> </td><td> </td><td> </td><td> </td><td>16</td><td> </td><td> </td><td> </td><td> </td><td>5.16</td><td>25.1</td><td>58</td></tr><tr><td> </td><td> </td><td> </td><td>32</td><td> </td><td> </td><td> </td><td> </td><td>5.01</td><td>25.4</td><td>60</td><td></td></tr><tr><td rowspan=\"7\">(C)</td><td>2</td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td>6.11</td><td>23.7</td><td>36</td></tr><tr><td>4</td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td>5.19</td><td>25.3</td><td>50</td></tr><tr><td>8</td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td>4.88</td><td>25.5</td><td>80</td></tr><tr><td>256</td><td> </td><td> </td><td>32</td><td>32</td><td> </td><td> </td><td> </td><td>5.75</td><td>24.5</td><td>28</td><td></td></tr><tr><td>1024</td><td> </td><td> </td><td>128</td><td>128</td><td> </td><td> </td><td>",
+    "chunk_id": 38,
+    "content": "</td><td>5.29</td><td>24.9</td></tr><tr><td> </td><td> </td><td>4</td><td>128</td><td>128</td><td> </td><td> </td><td> </td><td>5.00</td><td>25.5</td><td> </td><td></td></tr><tr><td> </td><td> </td><td>16</td><td>32</td><td>32</td><td> </td><td> </td><td> </td><td>4.91</td><td>25.8</td><td> </td><td></td></tr><tr><td> </td><td> </td><td>32</td><td>16</td><td>16</td><td> </td><td> </td><td> </td><td>5.01</td><td>25.4</td><td> </td><td></td></tr><tr><td rowspan=\"2\">(B)</td><td> </td><td> </td><td> </td><td> </td><td>16</td><td> </td><td>",
     "source": "attention-is-all-you-need",
     "title": "6.2 Model Variations",
     "heading_path": [
@@ -388,8 +585,8 @@
     "section_id": "65431d0e3170996d044e7beb47e71f32af4f0d00f62e827b5bd9c843c026a0ed"
   },
   {
-    "chunk_id": 26,
-    "content": "</td><td>4.66</td><td>26.0</td><td>168</td><td></td></tr><tr><td> </td><td>1024</td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td>5.12</td><td>25.4</td><td>53</td><td></td></tr><tr><td> </td><td>4096</td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td>4.75</td><td>26.2</td><td>90</td><td></td></tr><tr><td rowspan=\"4\">(D)</td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td>0.0</td><td> </td><td> </td><td>5.77</td><td>24.6</td></tr><tr><td> </td><td> </td><td> </td><td> </td><td> </td><td>0.2</td><td> </td><td> </td><td>4.95</td><td>25.5</td><td> </td><td></td></tr><tr><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td>0.0</td><td> </td><td>4.67</td><td>25.3</td><td> </td><td></td></tr><tr><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td>0.2</td><td> </td><td>5.47</td><td>25.7</td><td> </td><td></td></tr><tr><td>(E)</td><td colspan=\"9\">positional embedding instead of",
+    "chunk_id": 39,
+    "content": "</td><td> </td><td> </td><td>5.16</td><td>25.1</td><td>58</td></tr><tr><td> </td><td> </td><td> </td><td>32</td><td> </td><td> </td><td> </td><td> </td><td>5.01</td><td>25.4</td><td>60</td><td></td></tr><tr><td rowspan=\"7\">(C)</td><td>2</td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td>6.11</td><td>23.7</td><td>36</td></tr><tr><td>4</td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td>5.19</td><td>25.3</td><td>50</td></tr><tr><td>8</td><td> </td><td> </td><td>",
     "source": "attention-is-all-you-need",
     "title": "6.2 Model Variations",
     "heading_path": [
@@ -403,8 +600,8 @@
     "section_id": "65431d0e3170996d044e7beb47e71f32af4f0d00f62e827b5bd9c843c026a0ed"
   },
   {
-    "chunk_id": 27,
-    "content": "sinusoids</td><td>4.92</td><td>25.7</td></tr><tr><td>big</td><td>6</td><td>1024</td><td>4096</td><td>16</td><td> </td><td> </td><td>0.3</td><td> </td><td>300K</td><td><strong>4.33</strong></td><td><strong>26.4</strong></td><td>213</td></tr></tbody></table>\n\ndevelopment set, newstest2013. We used beam search as described in the previous section, but no checkpoint averaging. We present these results in Table 3.\n\nIn Table 3 rows (A), we vary the number of attention heads and the attention key and value dimensions, keeping the amount of computation constant, as described in Section 3.2.2. While single-head attention is 0.9 BLEU worse than the best setting, quality also drops off with too many heads.\n\nIn Table 3 rows (B), we observe that reducing the attention key size d<sub>k</sub> hurts model quality. This suggests that determining compatibility is not easy and that a more sophisticated compatibility function than dot product may be beneficial. We further observe in rows (C) and (D) that, as expected, bigger models are better, and dropout is very helpful in avoiding over-fitting. In row (E) we replace our sinusoidal positional encoding with learned positional embeddings [9], and observe nearly identical results to the base model.",
+    "chunk_id": 40,
+    "content": "</td><td> </td><td> </td><td> </td><td> </td><td> </td><td>4.88</td><td>25.5</td><td>80</td></tr><tr><td>256</td><td> </td><td> </td><td>32</td><td>32</td><td> </td><td> </td><td> </td><td>5.75</td><td>24.5</td><td>28</td><td></td></tr><tr><td>1024</td><td> </td><td> </td><td>128</td><td>128</td><td> </td><td> </td><td> </td><td>4.66</td><td>26.0</td><td>168</td><td></td></tr><tr><td> </td><td>1024</td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td>5.12</td><td>25.4</td><td>53</td><td></td></tr><tr><td> </td><td>4096</td><td>",
     "source": "attention-is-all-you-need",
     "title": "6.2 Model Variations",
     "heading_path": [
@@ -418,7 +615,52 @@
     "section_id": "65431d0e3170996d044e7beb47e71f32af4f0d00f62e827b5bd9c843c026a0ed"
   },
   {
-    "chunk_id": 28,
+    "chunk_id": 41,
+    "content": "</td><td> </td><td> </td><td> </td><td> </td><td> </td><td>4.75</td><td>26.2</td><td>90</td><td></td></tr><tr><td rowspan=\"4\">(D)</td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td>0.0</td><td> </td><td> </td><td>5.77</td><td>24.6</td></tr><tr><td> </td><td> </td><td> </td><td> </td><td> </td><td>0.2</td><td> </td><td> </td><td>4.95</td><td>25.5</td><td> </td><td></td></tr><tr><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td>0.0</td><td> </td><td>4.67</td><td>25.3</td><td>",
+    "source": "attention-is-all-you-need",
+    "title": "6.2 Model Variations",
+    "heading_path": [
+      "6 Results",
+      "6.2 Model Variations"
+    ],
+    "page": 9,
+    "contains_image": false,
+    "contains_table": true,
+    "contains_formulas": false,
+    "section_id": "65431d0e3170996d044e7beb47e71f32af4f0d00f62e827b5bd9c843c026a0ed"
+  },
+  {
+    "chunk_id": 42,
+    "content": "</td><td></td></tr><tr><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td>0.2</td><td> </td><td>5.47</td><td>25.7</td><td> </td><td></td></tr><tr><td>(E)</td><td colspan=\"9\">positional embedding instead of sinusoids</td><td>4.92</td><td>25.7</td></tr><tr><td>big</td><td>6</td><td>1024</td><td>4096</td><td>16</td><td> </td><td> </td><td>0.3</td><td> </td><td>300K</td><td><strong>4.33</strong></td><td><strong>26.4</strong></td><td>213</td></tr></tbody></table>",
+    "source": "attention-is-all-you-need",
+    "title": "6.2 Model Variations",
+    "heading_path": [
+      "6 Results",
+      "6.2 Model Variations"
+    ],
+    "page": 9,
+    "contains_image": false,
+    "contains_table": true,
+    "contains_formulas": false,
+    "section_id": "65431d0e3170996d044e7beb47e71f32af4f0d00f62e827b5bd9c843c026a0ed"
+  },
+  {
+    "chunk_id": 43,
+    "content": "development set, newstest2013. We used beam search as described in the previous section, but no checkpoint averaging. We present these results in Table 3.\n\nIn Table 3 rows (A), we vary the number of attention heads and the attention key and value dimensions, keeping the amount of computation constant, as described in Section 3.2.2. While single-head attention is 0.9 BLEU worse than the best setting, quality also drops off with too many heads.\n\nIn Table 3 rows (B), we observe that reducing the attention key size d<sub>k</sub> hurts model quality. This suggests that determining compatibility is not easy and that a more sophisticated compatibility function than dot product may be beneficial. We further observe in rows (C) and (D) that, as expected, bigger models are better, and dropout is very helpful in avoiding over-fitting. In row (E) we replace our sinusoidal positional encoding with learned positional embeddings [9], and observe nearly identical results to the base model.",
+    "source": "attention-is-all-you-need",
+    "title": "6.2 Model Variations",
+    "heading_path": [
+      "6 Results",
+      "6.2 Model Variations"
+    ],
+    "page": 9,
+    "contains_image": false,
+    "contains_table": false,
+    "contains_formulas": false,
+    "section_id": "65431d0e3170996d044e7beb47e71f32af4f0d00f62e827b5bd9c843c026a0ed"
+  },
+  {
+    "chunk_id": 44,
     "content": "To evaluate if the Transformer can generalize to other tasks we performed experiments on English constituency parsing. This task presents specific challenges: the output is subject to strong structural constraints and is significantly longer than the input. Furthermore, RNN sequence-to-sequence models have not been able to attain state-of-the-art results in small-data regimes [37].\n\nWe trained a 4-layer transformer with d<sub>model</sub> = 1024 on the Wall Street Journal (WSJ) portion of the Penn Treebank [25], about 40K training sentences. We also trained it in a semi-supervised setting, using the larger high-confidence and BerkleyParser corpora from with approximately 17M sentences [37]. We used a vocabulary of 16K tokens for the WSJ only setting and a vocabulary of 32K tokens for the semi-supervised setting.\n\nWe performed only a small number of experiments to select the dropout, both attention and residual (section 5.4), learning rates and beam size on the Section 22 development set, all other parameters remained unchanged from the English-to-German base translation model. During inference, we\nTable 4: The Transformer generalizes well to English constituency parsing (Results are on Section 23 of WSJ)",
     "source": "attention-is-all-you-need",
     "title": "6.3 English Constituency Parsing",
@@ -433,8 +675,8 @@
     "section_id": "122e1a257065e1cdd2eef632226579147e523562ea389df1e219e1fab1d9d1b5"
   },
   {
-    "chunk_id": 29,
-    "content": "<table><thead><tr><th>Parser</th><th>Training</th><th>WSJ 23 F1</th></tr></thead><tbody><tr><td>Vinyals &amp; Kaiser el al. (2014) [37]</td><td>WSJ only, discriminative</td><td>88.3</td></tr><tr><td>Petrov et al. (2006) [29]</td><td>WSJ only, discriminative</td><td>90.4</td></tr><tr><td>Zhu et al. (2013) [40]</td><td>WSJ only, discriminative</td><td>90.4</td></tr><tr><td>Dyer et al. (2016) [8]</td><td>WSJ only, discriminative</td><td>91.7</td></tr><tr><td>Transformer (4 layers)</td><td>WSJ only, discriminative</td><td>91.3</td></tr><tr><td>Zhu et al. (2013) [40]</td><td>semi-supervised</td><td>91.3</td></tr><tr><td>Huang &amp; Harper (2009) [14]</td><td>semi-supervised</td><td>91.3</td></tr><tr><td>McClosky et al. (2006) [26]</td><td>semi-supervised</td><td>92.1</td></tr><tr><td>Vinyals &amp; Kaiser el al. (2014) [37]</td><td>semi-supervised</td><td>92.1</td></tr><tr><td>Transformer (4 layers)</td><td>semi-supervised</td><td>92.7</td></tr><tr><td>Luong et al. (2015) [23]</td><td>multi-task</td><td>93.0</td></tr><tr><td>Dyer et al. (2016) [8]</td><td>generative</td><td>93.3</td></tr></tbody></table>",
+    "chunk_id": 45,
+    "content": "<table><thead><tr><th>Parser</th><th>Training</th><th>WSJ 23 F1</th></tr></thead><tbody><tr><td>Vinyals &amp; Kaiser el al. (2014) [37]</td><td>WSJ only, discriminative</td><td>88.3</td></tr><tr><td>Petrov et al. (2006) [29]</td><td>WSJ only, discriminative</td><td>90.4</td></tr><tr><td>Zhu et al. (2013) [40]</td><td>WSJ only, discriminative</td><td>90.4</td></tr><tr><td>Dyer et al. (2016) [8]</td><td>WSJ only, discriminative</td><td>91.7</td></tr><tr><td>Transformer (4 layers)</td><td>WSJ only, discriminative</td><td>91.3</td></tr><tr><td>Zhu et al. (2013) [40]</td><td>semi-supervised</td><td>91.3</td></tr><tr><td>Huang &amp; Harper (2009)",
     "source": "attention-is-all-you-need",
     "title": "6.3 English Constituency Parsing",
     "heading_path": [
@@ -448,8 +690,23 @@
     "section_id": "122e1a257065e1cdd2eef632226579147e523562ea389df1e219e1fab1d9d1b5"
   },
   {
-    "chunk_id": 30,
-    "content": "increased the maximum output length to input length + 300. We used a beam size of 21 and $\\alpha = 0.3$ for both WSJ only and the semi-supervised setting.\n\nOur results in Table 4 show that despite the lack of task-specific tuning our model performs surprisingly well, yielding better results than all previously reported models with the exception of the Recurrent Neural Network Grammar [8].\n\nIn contrast to RNN sequence-to-sequence models [37], the Transformer outperforms the Berkeley-Parser [29] even when training only on the WSJ training set of 40K sentences.",
+    "chunk_id": 46,
+    "content": "[14]</td><td>semi-supervised</td><td>91.3</td></tr><tr><td>McClosky et al. (2006) [26]</td><td>semi-supervised</td><td>92.1</td></tr><tr><td>Vinyals &amp; Kaiser el al. (2014) [37]</td><td>semi-supervised</td><td>92.1</td></tr><tr><td>Transformer (4 layers)</td><td>semi-supervised</td><td>92.7</td></tr><tr><td>Luong et al. (2015) [23]</td><td>multi-task</td><td>93.0</td></tr><tr><td>Dyer et al. (2016) [8]</td><td>generative</td><td>93.3</td></tr></tbody></table>\n\nincreased the maximum output length to input length + 300. We used a beam size of 21 and $\\alpha = 0.3$ for both WSJ only and the semi-supervised setting.",
+    "source": "attention-is-all-you-need",
+    "title": "6.3 English Constituency Parsing",
+    "heading_path": [
+      "6 Results",
+      "6.3 English Constituency Parsing"
+    ],
+    "page": 10,
+    "contains_image": false,
+    "contains_table": true,
+    "contains_formulas": true,
+    "section_id": "122e1a257065e1cdd2eef632226579147e523562ea389df1e219e1fab1d9d1b5"
+  },
+  {
+    "chunk_id": 47,
+    "content": "Our results in Table 4 show that despite the lack of task-specific tuning our model performs surprisingly well, yielding better results than all previously reported models with the exception of the Recurrent Neural Network Grammar [8].\n\nIn contrast to RNN sequence-to-sequence models [37], the Transformer outperforms the Berkeley-Parser [29] even when training only on the WSJ training set of 40K sentences.",
     "source": "attention-is-all-you-need",
     "title": "6.3 English Constituency Parsing",
     "heading_path": [
@@ -463,7 +720,7 @@
     "section_id": "122e1a257065e1cdd2eef632226579147e523562ea389df1e219e1fab1d9d1b5"
   },
   {
-    "chunk_id": 31,
+    "chunk_id": 48,
     "content": "In this work, we presented the Transformer, the first sequence transduction model based entirely on attention, replacing the recurrent layers most commonly used in encoder-decoder architectures with multi-headed self-attention.\n\nFor translation tasks, the Transformer can be trained significantly faster than architectures based on recurrent or convolutional layers. On both WMT 2014 English-to-German and WMT 2014 English-to-French translation tasks, we achieve a new state of the art. In the former task our best model outperforms even all previously reported ensembles.\n\nWe are excited about the future of attention-based models and plan to apply them to other tasks. We plan to extend the Transformer to problems involving input and output modalities other than text and to investigate local, restricted attention mechanisms to efficiently handle large inputs and outputs such as images, audio and video. Making generation less sequential is another research goals of ours.\n\nThe code we used to train and evaluate our models is available at [https://github.com/tensorflow/tensor2tensor](https://github.com/tensorflow/tensor2tensor).\n\n**Acknowledgements** We are grateful to Nal Kalchbrenner and Stephan Gouws for their fruitful comments, corrections and inspiration.",
     "source": "attention-is-all-you-need",
     "title": "7 Conclusion",
@@ -477,8 +734,8 @@
     "section_id": "a3b1e70d156e4ae1b9d194678c4c5567cc4d52f82918941ffa03621e61f04913"
   },
   {
-    "chunk_id": 32,
-    "content": "[1] Jimmy Lei Ba, Jamie Ryan Kiros, and Geoffrey E Hinton. Layer normalization. *arXiv preprint arXiv:1607.06450*, 2016.\n\n[2] Dzmitry Bahdanau, Kyunghyun Cho, and Yoshua Bengio. Neural machine translation by jointly learning to align and translate. *CoRR*, abs/1409.0473, 2014.\n\n[3] Denny Britz, Anna Goldie, Minh-Thang Luong, and Quoc V. Le. Massive exploration of neural machine translation architectures. *CoRR*, abs/1703.03906, 2017.\n\n[4] Jianpeng Cheng, Li Dong, and Mirella Lapata. Long short-term memory-networks for machine reading. *arXiv preprint arXiv:1601.06733*, 2016.\n[5] Kyunghyun Cho, Bart van Merrienboer, Caglar Gulcehre, Fethi Bougares, Holger Schwenk, and Yoshua Bengio. Learning phrase representations using rnn encoder-decoder for statistical machine translation. *CoRR*, abs/1406.1078, 2014.\n\n[6] Francois Chollet. Xception: Deep learning with depthwise separable convolutions. *arXiv preprint arXiv:1610.02357*, 2016.\n\n[7] Junyoung Chung, \u00c7aglar G\u00fcl\u00e7ehre, Kyunghyun Cho, and Yoshua Bengio. Empirical evaluation of gated recurrent neural networks on sequence modeling. *CoRR*, abs/1412.3555, 2014.\n\n[8] Chris Dyer, Adhiguna Kuncoro, Miguel Ballesteros, and Noah A. Smith. Recurrent neural network grammars. In *Proc. of NAACL*, 2016.\n\n[9] Jonas Gehring, Michael Auli, David Grangier, Denis Yarats, and Yann N. Dauphin. Convolutional sequence to sequence learning. *arXiv preprint arXiv:1705.03122v2*, 2017.\n\n[10] Alex Graves. Generating sequences with recurrent neural networks. *arXiv preprint arXiv:1308.0850*, 2013.\n\n[11] Kaiming He, Xiangyu Zhang, Shaoqing Ren, and Jian Sun. Deep residual learning for image recognition. In *Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition*, pages 770\u2013778, 2016.",
+    "chunk_id": 49,
+    "content": "[1] Jimmy Lei Ba, Jamie Ryan Kiros, and Geoffrey E Hinton. Layer normalization. *arXiv preprint arXiv:1607.06450*, 2016.\n\n[2] Dzmitry Bahdanau, Kyunghyun Cho, and Yoshua Bengio. Neural machine translation by jointly learning to align and translate. *CoRR*, abs/1409.0473, 2014.\n\n[3] Denny Britz, Anna Goldie, Minh-Thang Luong, and Quoc V. Le. Massive exploration of neural machine translation architectures. *CoRR*, abs/1703.03906, 2017.\n\n[4] Jianpeng Cheng, Li Dong, and Mirella Lapata. Long short-term memory-networks for machine reading. *arXiv preprint arXiv:1601.06733*, 2016.\n[5] Kyunghyun Cho, Bart van Merrienboer, Caglar Gulcehre, Fethi Bougares, Holger Schwenk, and Yoshua Bengio. Learning phrase representations using rnn encoder-decoder for statistical machine translation. *CoRR*, abs/1406.1078, 2014.\n\n[6] Francois Chollet. Xception: Deep learning with depthwise separable convolutions. *arXiv preprint arXiv:1610.02357*, 2016.",
     "source": "attention-is-all-you-need",
     "title": "References",
     "heading_path": [
@@ -491,8 +748,8 @@
     "section_id": "707bb17e214ced7d9dcd97b7ffd7a83b2a04d216275441f912ac365b5694b2ce"
   },
   {
-    "chunk_id": 33,
-    "content": "[12] Sepp Hochreiter, Yoshua Bengio, Paolo Frasconi, and J\u00fcrgen Schmidhuber. Gradient flow in recurrent nets: the difficulty of learning long-term dependencies, 2001.\n\n[13] Sepp Hochreiter and J\u00fcrgen Schmidhuber. Long short-term memory. *Neural computation*, 9(8):1735\u20131780, 1997.\n\n[14] Zhongqiang Huang and Mary Harper. Self-training PCFG grammars with latent annotations across languages. In *Proceedings of the 2009 Conference on Empirical Methods in Natural Language Processing*, pages 832\u2013841. ACL, August 2009.\n\n[15] Rafal Jozefowicz, Oriol Vinyals, Mike Schuster, Noam Shazeer, and Yonghui Wu. Exploring the limits of language modeling. *arXiv preprint arXiv:1602.02410*, 2016.\n\n[16] \u0141ukasz Kaiser and Samy Bengio. Can active memory replace attention? In *Advances in Neural Information Processing Systems, (NIPS)*, 2016.\n\n[17] \u0141ukasz Kaiser and Ilya Sutskever. Neural GPUs learn algorithms. In *International Conference on Learning Representations (ICLR)*, 2016.\n\n[18] Nal Kalchbrenner, Lasse Espeholt, Karen Simonyan, Aaron van den Oord, Alex Graves, and Koray Kavukcuoglu. Neural machine translation in linear time. *arXiv preprint arXiv:1610.10099v2*, 2017.\n\n[19] Yoon Kim, Carl Denton, Luong Hoang, and Alexander M. Rush. Structured attention networks. In *International Conference on Learning Representations*, 2017.\n\n[20] Diederik Kingma and Jimmy Ba. Adam: A method for stochastic optimization. In *ICLR*, 2015.\n\n[21] Oleksii Kuchaiev and Boris Ginsburg. Factorization tricks for LSTM networks. *arXiv preprint arXiv:1703.10722*, 2017.\n\n[22] Zhouhan Lin, Minwei Feng, Cicero Nogueira dos Santos, Mo Yu, Bing Xiang, Bowen Zhou, and Yoshua Bengio. A structured self-attentive sentence embedding. *arXiv preprint arXiv:1703.03130*, 2017.\n\n[23] Minh-Thang Luong, Quoc V. Le, Ilya Sutskever, Oriol Vinyals, and Lukasz Kaiser. Multi-task sequence to sequence learning. *arXiv preprint arXiv:1511.06114*, 2015.",
+    "chunk_id": 50,
+    "content": "[7] Junyoung Chung, \u00c7aglar G\u00fcl\u00e7ehre, Kyunghyun Cho, and Yoshua Bengio. Empirical evaluation of gated recurrent neural networks on sequence modeling. *CoRR*, abs/1412.3555, 2014.\n\n[8] Chris Dyer, Adhiguna Kuncoro, Miguel Ballesteros, and Noah A. Smith. Recurrent neural network grammars. In *Proc. of NAACL*, 2016.\n\n[9] Jonas Gehring, Michael Auli, David Grangier, Denis Yarats, and Yann N. Dauphin. Convolutional sequence to sequence learning. *arXiv preprint arXiv:1705.03122v2*, 2017.\n\n[10] Alex Graves. Generating sequences with recurrent neural networks. *arXiv preprint arXiv:1308.0850*, 2013.\n\n[11] Kaiming He, Xiangyu Zhang, Shaoqing Ren, and Jian Sun. Deep residual learning for image recognition. In *Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition*, pages 770\u2013778, 2016.\n\n[12] Sepp Hochreiter, Yoshua Bengio, Paolo Frasconi, and J\u00fcrgen Schmidhuber. Gradient flow in recurrent nets: the difficulty of learning long-term dependencies, 2001.\n\n[13] Sepp Hochreiter and J\u00fcrgen Schmidhuber. Long short-term memory. *Neural computation*, 9(8):1735\u20131780, 1997.",
     "source": "attention-is-all-you-need",
     "title": "References",
     "heading_path": [
@@ -505,8 +762,36 @@
     "section_id": "707bb17e214ced7d9dcd97b7ffd7a83b2a04d216275441f912ac365b5694b2ce"
   },
   {
-    "chunk_id": 34,
-    "content": "[24] Minh-Thang Luong, Hieu Pham, and Christopher D Manning. Effective approaches to attention-based neural machine translation. *arXiv preprint arXiv:1508.04025*, 2015.\n[25] Mitchell P Marcus, Mary Ann Marcinkiewicz, and Beatrice Santorini. Building a large annotated corpus of english: The penn treebank. *Computational linguistics*, 19(2):313\u2013330, 1993.\n\n[26] David McClosky, Eugene Charniak, and Mark Johnson. Effective self-training for parsing. In *Proceedings of the Human Language Technology Conference of the NAACL, Main Conference*, pages 152\u2013159. ACL, June 2006.\n\n[27] Ankur Parikh, Oscar T\u00e4ckstr\u00f6m, Dipanjan Das, and Jakob Uszkoreit. A decomposable attention model. In *Empirical Methods in Natural Language Processing*, 2016.\n\n[28] Romain Paulus, Caiming Xiong, and Richard Socher. A deep reinforced model for abstractive summarization. *arXiv preprint arXiv:1705.04304*, 2017.\n\n[29] Slav Petrov, Leon Barrett, Romain Thibaux, and Dan Klein. Learning accurate, compact, and interpretable tree annotation. In *Proceedings of the 21st International Conference on Computational Linguistics and 44th Annual Meeting of the ACL*, pages 433\u2013440. ACL, July 2006.\n\n[30] Ofir Press and Lior Wolf. Using the output embedding to improve language models. *arXiv preprint arXiv:1608.05859*, 2016.\n\n[31] Rico Sennrich, Barry Haddow, and Alexandra Birch. Neural machine translation of rare words with subword units. *arXiv preprint arXiv:1508.07909*, 2015.\n\n[32] Noam Shazeer, Azalia Mirhoseini, Krzysztof Maziarz, Andy Davis, Quoc Le, Geoffrey Hinton, and Jeff Dean. Outrageously large neural networks: The sparsely-gated mixture-of-experts layer. *arXiv preprint arXiv:1701.06538*, 2017.\n\n[33] Nitish Srivastava, Geoffrey E Hinton, Alex Krizhevsky, Ilya Sutskever, and Ruslan Salakhutdinov. Dropout: a simple way to prevent neural networks from overfitting. *Journal of Machine Learning Research*, 15(1):1929\u20131958, 2014.",
+    "chunk_id": 51,
+    "content": "[14] Zhongqiang Huang and Mary Harper. Self-training PCFG grammars with latent annotations across languages. In *Proceedings of the 2009 Conference on Empirical Methods in Natural Language Processing*, pages 832\u2013841. ACL, August 2009.\n\n[15] Rafal Jozefowicz, Oriol Vinyals, Mike Schuster, Noam Shazeer, and Yonghui Wu. Exploring the limits of language modeling. *arXiv preprint arXiv:1602.02410*, 2016.\n\n[16] \u0141ukasz Kaiser and Samy Bengio. Can active memory replace attention? In *Advances in Neural Information Processing Systems, (NIPS)*, 2016.\n\n[17] \u0141ukasz Kaiser and Ilya Sutskever. Neural GPUs learn algorithms. In *International Conference on Learning Representations (ICLR)*, 2016.\n\n[18] Nal Kalchbrenner, Lasse Espeholt, Karen Simonyan, Aaron van den Oord, Alex Graves, and Koray Kavukcuoglu. Neural machine translation in linear time. *arXiv preprint arXiv:1610.10099v2*, 2017.\n\n[19] Yoon Kim, Carl Denton, Luong Hoang, and Alexander M. Rush. Structured attention networks. In *International Conference on Learning Representations*, 2017.\n\n[20] Diederik Kingma and Jimmy Ba. Adam: A method for stochastic optimization. In *ICLR*, 2015.",
+    "source": "attention-is-all-you-need",
+    "title": "References",
+    "heading_path": [
+      "References"
+    ],
+    "page": 11,
+    "contains_image": false,
+    "contains_table": false,
+    "contains_formulas": false,
+    "section_id": "707bb17e214ced7d9dcd97b7ffd7a83b2a04d216275441f912ac365b5694b2ce"
+  },
+  {
+    "chunk_id": 52,
+    "content": "[21] Oleksii Kuchaiev and Boris Ginsburg. Factorization tricks for LSTM networks. *arXiv preprint arXiv:1703.10722*, 2017.\n\n[22] Zhouhan Lin, Minwei Feng, Cicero Nogueira dos Santos, Mo Yu, Bing Xiang, Bowen Zhou, and Yoshua Bengio. A structured self-attentive sentence embedding. *arXiv preprint arXiv:1703.03130*, 2017.\n\n[23] Minh-Thang Luong, Quoc V. Le, Ilya Sutskever, Oriol Vinyals, and Lukasz Kaiser. Multi-task sequence to sequence learning. *arXiv preprint arXiv:1511.06114*, 2015.\n\n[24] Minh-Thang Luong, Hieu Pham, and Christopher D Manning. Effective approaches to attention-based neural machine translation. *arXiv preprint arXiv:1508.04025*, 2015.\n[25] Mitchell P Marcus, Mary Ann Marcinkiewicz, and Beatrice Santorini. Building a large annotated corpus of english: The penn treebank. *Computational linguistics*, 19(2):313\u2013330, 1993.\n\n[26] David McClosky, Eugene Charniak, and Mark Johnson. Effective self-training for parsing. In *Proceedings of the Human Language Technology Conference of the NAACL, Main Conference*, pages 152\u2013159. ACL, June 2006.",
+    "source": "attention-is-all-you-need",
+    "title": "References",
+    "heading_path": [
+      "References"
+    ],
+    "page": 11,
+    "contains_image": false,
+    "contains_table": false,
+    "contains_formulas": false,
+    "section_id": "707bb17e214ced7d9dcd97b7ffd7a83b2a04d216275441f912ac365b5694b2ce"
+  },
+  {
+    "chunk_id": 53,
+    "content": "[27] Ankur Parikh, Oscar T\u00e4ckstr\u00f6m, Dipanjan Das, and Jakob Uszkoreit. A decomposable attention model. In *Empirical Methods in Natural Language Processing*, 2016.\n\n[28] Romain Paulus, Caiming Xiong, and Richard Socher. A deep reinforced model for abstractive summarization. *arXiv preprint arXiv:1705.04304*, 2017.\n\n[29] Slav Petrov, Leon Barrett, Romain Thibaux, and Dan Klein. Learning accurate, compact, and interpretable tree annotation. In *Proceedings of the 21st International Conference on Computational Linguistics and 44th Annual Meeting of the ACL*, pages 433\u2013440. ACL, July 2006.\n\n[30] Ofir Press and Lior Wolf. Using the output embedding to improve language models. *arXiv preprint arXiv:1608.05859*, 2016.\n\n[31] Rico Sennrich, Barry Haddow, and Alexandra Birch. Neural machine translation of rare words with subword units. *arXiv preprint arXiv:1508.07909*, 2015.\n\n[32] Noam Shazeer, Azalia Mirhoseini, Krzysztof Maziarz, Andy Davis, Quoc Le, Geoffrey Hinton, and Jeff Dean. Outrageously large neural networks: The sparsely-gated mixture-of-experts layer. *arXiv preprint arXiv:1701.06538*, 2017.",
     "source": "attention-is-all-you-need",
     "title": "References",
     "heading_path": [
@@ -519,8 +804,8 @@
     "section_id": "707bb17e214ced7d9dcd97b7ffd7a83b2a04d216275441f912ac365b5694b2ce"
   },
   {
-    "chunk_id": 35,
-    "content": "[34] Sainbayar Sukhbaatar, Arthur Szlam, Jason Weston, and Rob Fergus. End-to-end memory networks. In C. Cortes, N. D. Lawrence, D. D. Lee, M. Sugiyama, and R. Garnett, editors, *Advances in Neural Information Processing Systems 28*, pages 2440\u20132448. Curran Associates, Inc., 2015.\n\n[35] Ilya Sutskever, Oriol Vinyals, and Quoc VV Le. Sequence to sequence learning with neural networks. In *Advances in Neural Information Processing Systems*, pages 3104\u20133112, 2014.\n\n[36] Christian Szegedy, Vincent Vanhoucke, Sergey Ioffe, Jonathon Shlens, and Zbigniew Wojna. Rethinking the inception architecture for computer vision. *CoRR*, abs/1512.00567, 2015.\n\n[37] Vinyals & Kaiser, Koo, Petrov, Sutskever, and Hinton. Grammar as a foreign language. In *Advances in Neural Information Processing Systems*, 2015.\n\n[38] Yonghui Wu, Mike Schuster, Zhifeng Chen, Quoc V Le, Mohammad Norouzi, Wolfgang Macherey, Maxim Krikun, Yuan Cao, Qin Gao, Klaus Macherey, et al. Google\u2019s neural machine translation system: Bridging the gap between human and machine translation. *arXiv preprint arXiv:1609.08144*, 2016.\n\n[39] Jie Zhou, Ying Cao, Xuguang Wang, Peng Li, and Wei Xu. Deep recurrent models with fast-forward connections for neural machine translation. *CoRR*, abs/1606.04199, 2016.\n\n[40] Muhua Zhu, Yue Zhang, Wenliang Chen, Min Zhang, and Jingbo Zhu. Fast and accurate shift-reduce constituent parsing. In *Proceedings of the 51st Annual Meeting of the ACL (Volume 1: Long Papers)*, pages 434\u2013443. ACL, August 2013.",
+    "chunk_id": 54,
+    "content": "[33] Nitish Srivastava, Geoffrey E Hinton, Alex Krizhevsky, Ilya Sutskever, and Ruslan Salakhutdinov. Dropout: a simple way to prevent neural networks from overfitting. *Journal of Machine Learning Research*, 15(1):1929\u20131958, 2014.\n\n[34] Sainbayar Sukhbaatar, Arthur Szlam, Jason Weston, and Rob Fergus. End-to-end memory networks. In C. Cortes, N. D. Lawrence, D. D. Lee, M. Sugiyama, and R. Garnett, editors, *Advances in Neural Information Processing Systems 28*, pages 2440\u20132448. Curran Associates, Inc., 2015.\n\n[35] Ilya Sutskever, Oriol Vinyals, and Quoc VV Le. Sequence to sequence learning with neural networks. In *Advances in Neural Information Processing Systems*, pages 3104\u20133112, 2014.\n\n[36] Christian Szegedy, Vincent Vanhoucke, Sergey Ioffe, Jonathon Shlens, and Zbigniew Wojna. Rethinking the inception architecture for computer vision. *CoRR*, abs/1512.00567, 2015.\n\n[37] Vinyals & Kaiser, Koo, Petrov, Sutskever, and Hinton. Grammar as a foreign language. In *Advances in Neural Information Processing Systems*, 2015.",
     "source": "attention-is-all-you-need",
     "title": "References",
     "heading_path": [
@@ -533,8 +818,22 @@
     "section_id": "707bb17e214ced7d9dcd97b7ffd7a83b2a04d216275441f912ac365b5694b2ce"
   },
   {
-    "chunk_id": 36,
-    "content": "<table><thead><tr><th>Left Tokens</th><th>Right\n\nTokens</th></tr></thead><tbody><tr><td>It</td><td>It</td></tr><tr><td>is</td><td>is</td></tr><tr><td>in</td><td>in</td></tr><tr><td>this</td><td>this</td></tr><tr><td>spirit</td><td>spirit</td></tr><tr><td>that</td><td>that</td></tr><tr><td>a</td><td>a</td></tr><tr><td>majority</td><td>majority</td></tr><tr><td>of</td><td>of</td></tr><tr><td>American</td><td>American</td></tr><tr><td>governments</td><td>governments</td></tr><tr><td>have</td><td>have</td></tr><tr><td>passed</td><td>passed</td></tr><tr><td>new</td><td>new</td></tr><tr><td>laws</td><td>laws</td></tr><tr><td>since</td><td>since</td></tr><tr><td>2009</td><td>2009</td></tr><tr><td>making</td><td>making</td></tr><tr><td>the</td",
+    "chunk_id": 55,
+    "content": "[38] Yonghui Wu, Mike Schuster, Zhifeng Chen, Quoc V Le, Mohammad Norouzi, Wolfgang Macherey, Maxim Krikun, Yuan Cao, Qin Gao, Klaus Macherey, et al. Google\u2019s neural machine translation system: Bridging the gap between human and machine translation. *arXiv preprint arXiv:1609.08144*, 2016.\n\n[39] Jie Zhou, Ying Cao, Xuguang Wang, Peng Li, and Wei Xu. Deep recurrent models with fast-forward connections for neural machine translation. *CoRR*, abs/1606.04199, 2016.\n\n[40] Muhua Zhu, Yue Zhang, Wenliang Chen, Min Zhang, and Jingbo Zhu. Fast and accurate shift-reduce constituent parsing. In *Proceedings of the 51st Annual Meeting of the ACL (Volume 1: Long Papers)*, pages 434\u2013443. ACL, August 2013.",
+    "source": "attention-is-all-you-need",
+    "title": "References",
+    "heading_path": [
+      "References"
+    ],
+    "page": 12,
+    "contains_image": false,
+    "contains_table": false,
+    "contains_formulas": false,
+    "section_id": "707bb17e214ced7d9dcd97b7ffd7a83b2a04d216275441f912ac365b5694b2ce"
+  },
+  {
+    "chunk_id": 56,
+    "content": "<table><thead><tr><th>Left Tokens</th><th>Right",
     "source": "attention-is-all-you-need",
     "title": "Attention Visualizations",
     "heading_path": [
@@ -547,8 +846,8 @@
     "section_id": "0db342d253153891eebd7787857089977d1a492870876d9df1c6ca02b2cb57bb"
   },
   {
-    "chunk_id": 37,
-    "content": "><td>the</td></tr><tr><td>registration</td><td>registration</td></tr><tr><td>or</td><td>or</td></tr><tr><td>voting</td><td>voting</td></tr><tr><td>process</td><td>process</td></tr><tr><td>more</td><td>more</td></tr><tr><td>difficult</td><td>difficult</td></tr><tr><td>.</td><td>.</td></tr><tr><td>&lt;EOS&gt;</td><td>&lt;EOS&gt;</td></tr><tr><td>&lt;pad&gt;</td><td>&lt;pad&gt;</td></tr><tr><td>&lt;pad&gt;</td><td>&lt;pad&gt;</td></tr><tr><td>&lt;pad&gt;</td><td>&lt;pad&gt;</td></tr><tr><td>&lt;pad&gt;</td><td>&lt;pad&gt;</td></tr><tr><td>&lt;pad&gt;</td><td>&lt;pad&gt;</td></tr><tr><td>&lt;pad&gt;</td><td>&lt;pad&gt;</td></tr><tr><td>&lt;pad&gt;</td><td>&lt;pad&gt;</td></tr></tbody></table>\n\nFigure 3: An example of the attention mechanism following long-distance dependencies in the encoder self-attention in layer 5 of 6. Many of the attention heads attend to a distant dependency of the verb \u2018making\u2019, completing the phrase \u2018making...more difficult\u2019. Attentions here shown only for the word \u2018making\u2019. Different colors represent different heads. Best viewed in color.\n\n13\nThe Law will never be perfect, but its application should be just - this is what we are missing, in my opinion.",
+    "chunk_id": 57,
+    "content": "Tokens</th></tr></thead><tbody><tr><td>It</td><td>It</td></tr><tr><td>is</td><td>is</td></tr><tr><td>in</td><td>in</td></tr><tr><td>this</td><td>this</td></tr><tr><td>spirit</td><td>spirit</td></tr><tr><td>that</td><td>that</td></tr><tr><td>a</td><td>a</td></tr><tr><td>majority</td><td>majority</td></tr><tr><td>of</td><td>of</td></tr><tr><td>American</td><td>American</td></tr><tr><td>governments</td><td>governments</td></tr><tr><td>have</td><td>have</td></tr><tr><td>passed</td><td>passed</td></tr><tr><td>new</td><td>new</td></tr><tr><td>laws</td><td>laws</td></tr><tr><td>since</td><td>since</td></tr><tr><td>2009</td><td>2009</td></tr><tr><td>making</td><td>making</td></tr><tr><td>the</td",
     "source": "attention-is-all-you-need",
     "title": "Attention Visualizations",
     "heading_path": [
@@ -561,8 +860,36 @@
     "section_id": "0db342d253153891eebd7787857089977d1a492870876d9df1c6ca02b2cb57bb"
   },
   {
-    "chunk_id": 38,
-    "content": "Visualization of attention heads in a Transformer model. The top part shows full attention connections between words in a sentence. The bottom part shows isolated attention from the word 'its' to other words like 'Law' and 'application'.\n\nFigure 4: Two attention heads, also in layer 5 of 6, apparently involved in anaphora resolution. Top: Full attentions for head 5. Bottom: Isolated attentions from just the word \u2018its\u2019 for attention heads 5 and 6. Note that the attentions are very sharp for this word.\nAttention head visualization showing connections between words in a sentence for two different heads in layer 5. The left visualization uses red lines and the right uses green lines to represent attention weights between tokens like \"The\", \"Law\", \"will\", \"never\", \"be\", \"perfect\", \"but\", \"its\", \"application\", \"should\", \"be\", \"just\", \"this\", \"is\", \"what\", \"we\", \"are\", \"missing\", \"in\", \"my\", \"opinion\", \"<EOS>\", and \"<pad>\".\n\nFigure 5: Many of the attention heads exhibit behaviour that seems related to the structure of the sentence. We give two such examples above, from two different heads from the encoder self-attention at layer 5 of 6. The heads clearly learned to perform different tasks.\n\n15",
+    "chunk_id": 58,
+    "content": "><td>the</td></tr><tr><td>registration</td><td>registration</td></tr><tr><td>or</td><td>or</td></tr><tr><td>voting</td><td>voting</td></tr><tr><td>process</td><td>process</td></tr><tr><td>more</td><td>more</td></tr><tr><td>difficult</td><td>difficult</td></tr><tr><td>.</td><td>.</td></tr><tr><td>&lt;EOS&gt;</td><td>&lt;EOS&gt;</td></tr><tr><td>&l",
+    "source": "attention-is-all-you-need",
+    "title": "Attention Visualizations",
+    "heading_path": [
+      "Attention Visualizations"
+    ],
+    "page": 13,
+    "contains_image": false,
+    "contains_table": true,
+    "contains_formulas": false,
+    "section_id": "0db342d253153891eebd7787857089977d1a492870876d9df1c6ca02b2cb57bb"
+  },
+  {
+    "chunk_id": 59,
+    "content": "t;pad&gt;</td><td>&lt;pad&gt;</td></tr><tr><td>&lt;pad&gt;</td><td>&lt;pad&gt;</td></tr><tr><td>&lt;pad&gt;</td><td>&lt;pad&gt;</td></tr><tr><td>&lt;pad&gt;</td><td>&lt;pad&gt;</td></tr><tr><td>&lt;pad&gt;</td><td>&lt;pad&gt;</td></tr><tr><td>&lt;pad&gt;</td><td>&lt;pad&gt;</td></tr><tr><td>&lt;pad&gt;</td><td>&lt;pad&gt;</td></tr></tbody></table>\n\nFigure 3: An example of the attention mechanism following long-distance dependencies in the encoder self-attention in layer 5 of 6. Many of the attention heads attend to a distant dependency of the verb \u2018making\u2019, completing the phrase \u2018making...more difficult\u2019. Attentions here shown only for the word \u2018making\u2019. Different colors represent different heads. Best viewed in color.",
+    "source": "attention-is-all-you-need",
+    "title": "Attention Visualizations",
+    "heading_path": [
+      "Attention Visualizations"
+    ],
+    "page": 13,
+    "contains_image": false,
+    "contains_table": true,
+    "contains_formulas": false,
+    "section_id": "0db342d253153891eebd7787857089977d1a492870876d9df1c6ca02b2cb57bb"
+  },
+  {
+    "chunk_id": 60,
+    "content": "13\nThe Law will never be perfect, but its application should be just - this is what we are missing, in my opinion.\n\nVisualization of attention heads in a Transformer model. The top part shows full attention connections between words in a sentence. The bottom part shows isolated attention from the word 'its' to other words like 'Law' and 'application'.\n\nFigure 4: Two attention heads, also in layer 5 of 6, apparently involved in anaphora resolution. Top: Full attentions for head 5. Bottom: Isolated attentions from just the word \u2018its\u2019 for attention heads 5 and 6. Note that the attentions are very sharp for this word.\nThe Law will never be perfect\n\nAttention head visualization showing connections between words in a sentence for two different heads. The left visualization uses red lines and the right uses green lines. The sentence is \"The Law will never be perfect, but its application should just - this is what we are missing, in my opinion.\" followed by <EOS> and <pad> tokens.\n\nFigure 5: Many of the attention heads exhibit behaviour that seems related to the structure of the sentence. We give two such examples above, from two different heads from the encoder self-attention at layer 5 of 6. The heads clearly learned to perform different tasks.",
     "source": "attention-is-all-you-need",
     "title": "Attention Visualizations",
     "heading_path": [
@@ -575,7 +902,7 @@
     "section_id": "0db342d253153891eebd7787857089977d1a492870876d9df1c6ca02b2cb57bb"
   },
   {
-    "chunk_id": 39,
+    "chunk_id": 61,
     "content": "<table><thead><tr><th>Shuiwang Ji</th><th>Yaochen Xie</th><th>Hongyang Gao</th></tr></thead><tbody><tr><td>Texas A&M University</td><td>Texas A&M University</td><td>Texas A&M University</td></tr><tr><td>College Station, TX 77843</td><td>College Station, TX 77843</td><td>College Station, TX 77843</td></tr></tbody></table>",
     "source": "Mathematical_view_of_attention_models",
     "title": "A Mathematical View of Attention Models in Deep Learning",
@@ -589,7 +916,7 @@
     "section_id": "f36adb5f54e8285ab804744f1ec9ddb165d80dd7f8d1c619f3c4fcbfb03f34b9"
   },
   {
-    "chunk_id": 40,
+    "chunk_id": 62,
     "content": "This introduction of attention models aims at providing a complete, self-contained, and easy-to-understand introduction of this important class of deep modules. This document is based on lecture notes by Shuiwang Ji at Texas A&M University and can be used for undergraduate and graduate level classes.",
     "source": "Mathematical_view_of_attention_models",
     "title": "1 Introduction",
@@ -604,8 +931,8 @@
     "section_id": "3f50348beee6e8f81cd02cd2813be73d9680b35ae4f9ac726180ac70c8c94af3"
   },
   {
-    "chunk_id": 41,
-    "content": "Given a set of $n$ query vectors $q_1, q_2, \\dots, q_n \\in \\mathbb{R}^d$, $m$ key vectors $k_1, k_2, \\dots, k_m \\in \\mathbb{R}^d$, and $m$ value vectors $v_1, v_2, \\dots, v_m \\in \\mathbb{R}^p$, the attention mechanism computes a set of output vectors $o_1, o_2, \\dots, o_n \\in \\mathbb{R}^q$ by linearly combining the $g$-transformed value vectors $g(v_i) \\in \\mathbb{R}^q$ using the relations between the corresponding query vector and each key vector as coefficients. Formally,\n\n$$ o_j = \\frac{1}{C} \\sum_{i=1}^{m} f(q_j, k_i)g(v_i), \\tag{1} $$\n\nwhere $f(q_j, k_i)$ characterizes the relation (e.g., similarity) between $q_j$ and $k_i$, $g(\\cdot)$ is commonly a linear transformation as $g(v_i) = \\mathbf{W}_v v_i \\in \\mathbb{R}^q$, where $\\mathbf{W}_v \\in \\mathbb{R}^{q \\times p}$, and $C = \\sum_{i=1}^{m} f(q_j, k_i)$ is a normalization factor. A commonly used similarity function is the embedded Gaussian [5], defined as $f(q_j, k_i) = \\exp(\\theta(q_j)^T \\phi(k_i))$, where $\\theta(\\cdot)$ and $\\phi(\\cdot)$ are commonly linear transformations as $\\theta(q_j) = \\mathbf{W}_q q_j$ and $\\phi(k_i) = \\mathbf{W}_k k_i$. Note that if we treat the value vectors as inputs, each output vector $o_j$ is dependent on all input vectors. When the embedded Gaussian similarity and linear transformation are used, these computations can be expressed succinctly in matrix form as",
+    "chunk_id": 63,
+    "content": "Given a set of $n$ query vectors $q_1, q_2, \\dots, q_n \\in \\mathbb{R}^d$, $m$ key vectors $k_1, k_2, \\dots, k_m \\in \\mathbb{R}^d$, and $m$ value vectors $v_1, v_2, \\dots, v_m \\in \\mathbb{R}^p$, the attention mechanism computes a set of output vectors $o_1, o_2, \\dots, o_n \\in \\mathbb{R}^q$ by linearly combining the $g$-transformed value vectors $g(v_i) \\in \\mathbb{R}^q$ using the relations between the corresponding query vector and each key vector as coefficients. Formally,\n\n$$o_j = \\frac{1}{C} \\sum_{i=1}^{m} f(q_j, k_i)g(v_i), \\tag{1}$$",
     "source": "Mathematical_view_of_attention_models",
     "title": "2 Attention Mechanism for One-Dimensional Data",
     "heading_path": [
@@ -619,8 +946,8 @@
     "section_id": "57e22861fa0d886c953a484fe53788dc2dc444e94b481d932c29097363559afd"
   },
   {
-    "chunk_id": 42,
-    "content": "$$ \\mathbf{O} = \\mathbf{W}_v \\mathbf{V} \\times \\text{softmax} \\left( (\\mathbf{W}_k \\mathbf{K})^T \\mathbf{W}_q \\mathbf{Q} \\right), \\tag{2} $$\n\nwhere $\\mathbf{Q} = [q_1, q_2, \\dots, q_n] \\in \\mathbb{R}^{d \\times n}$, $\\mathbf{K} = [k_1, k_2, \\dots, k_m] \\in \\mathbb{R}^{d \\times m}$, $\\mathbf{V} = [v_1, v_2, \\dots, v_m] \\in \\mathbb{R}^{p \\times m}$, $\\mathbf{O} = [o_1, o_2, \\dots, o_n] \\in \\mathbb{R}^{q \\times n}$, and $\\text{softmax}(\\cdot)$ computes a normalized version of the input matrix, where each column is normalized using the softmax function to sum to one [4]. Note that the number of output vectors is equal to the number of query vectors.",
+    "chunk_id": 64,
+    "content": "where $f(q_j, k_i)$ characterizes the relation (e.g., similarity) between $q_j$ and $k_i$, $g(\\cdot)$ is commonly a linear transformation as $g(v_i) = \\mathbf{W}_v v_i \\in \\mathbb{R}^q$, where $\\mathbf{W}_v \\in \\mathbb{R}^{q \\times p}$, and $C = \\sum_{i=1}^{m} f(q_j, k_i)$ is a normalization factor. A commonly used similarity function is the embedded Gaussian [5], defined as $f(q_j, k_i) = \\exp(\\theta(q_j)^T \\phi(k_i))$, where $\\theta(\\cdot)$ and $\\phi(\\cdot)$ are commonly linear transformations as $\\theta(q_j) = \\mathbf{W}_q q_j$ and $\\phi(k_i) = \\mathbf{W}_k k_i$. Note that if we treat the value vectors as inputs, each output vector $o_j$ is dependent on all input vectors. When the embedded Gaussian similarity and linear transformation are used, these computations can be expressed succinctly in matrix form as",
     "source": "Mathematical_view_of_attention_models",
     "title": "2 Attention Mechanism for One-Dimensional Data",
     "heading_path": [
@@ -634,8 +961,23 @@
     "section_id": "57e22861fa0d886c953a484fe53788dc2dc444e94b481d932c29097363559afd"
   },
   {
-    "chunk_id": 43,
-    "content": "We introduce two specific types of the attention mechanism. The different types of attention mainly differ in how the $\\mathbf{Q}, \\mathbf{K}$ and $\\mathbf{V}$ matrices are obtained, and their computations of the output given $\\mathbf{Q}, \\mathbf{K}$ and $\\mathbf{V}$ are the same.\n\nThe self-attention [4] captures the intra-correlation of a given input matrix $\\mathbf{X} = [x_1, x_2, \\dots, x_n] \\in \\mathbb{R}^{d \\times n}$. In the self-attention, we let $\\mathbf{Q} = \\mathbf{K} = \\mathbf{V} = \\mathbf{X}$. Equation 2 then becomes\n\n$$ \\mathbf{O} = \\mathbf{W}_v \\mathbf{X} \\times \\text{softmax} \\left( (\\mathbf{W}_k \\mathbf{X})^T \\mathbf{W}_q \\mathbf{X} \\right), \\tag{3} $$\nAn illustration of the attention operator showing matrices Q, K, and V being processed through matrix multiplication and softmax to produce output O.\n\nFigure 1: An illustration of the attention operator. Here, $\\times$ denotes matrix multiplication, and Softmax($\\cdot$) is the column-wise softmax operator. **$Q$**, **$K$**, and **$V$** are input matrices. A similarity score is computed between each query vector as a column of **$Q$** and each key vector as a column in **$K$**. Softmax($\\cdot$) normalizes these scores and makes them sum to 1. Multiplication between normalized scores and the matrix **$V$** yields the corresponding output vector.\n\nIn this case, the number of output vectors is determined by the the number of input vectors.\n\nThe attention with learnable query is a common variation of the self-attention, where we still have $K = V = X$. However, the query $Q \\in \\mathbb{R}^{d \\times n}$ is neither given as input nor dependent on the input. Instead, we directly learn the $Q$ matrix as trainable variables. Equation 2 thus becomes\n\n$$O = W_v X \\times \\text{softmax} \\left( (W_k X)^T Q \\right). \\tag{4}$$",
+    "chunk_id": 65,
+    "content": "$$\\mathbf{O} = \\mathbf{W}_v \\mathbf{V} \\times \\text{softmax}\\left((\\mathbf{W}_k \\mathbf{K})^T \\mathbf{W}_q \\mathbf{Q}\\right), \\tag{2}$$\n\nwhere $\\mathbf{Q} = [q_1, q_2, \\dots, q_n] \\in \\mathbb{R}^{d \\times n}$, $\\mathbf{K} = [k_1, k_2, \\dots, k_m] \\in \\mathbb{R}^{d \\times m}$, $\\mathbf{V} = [v_1, v_2, \\dots, v_m] \\in \\mathbb{R}^{p \\times m}$, $\\mathbf{O} = [o_1, o_2, \\dots, o_n] \\in \\mathbb{R}^{q \\times n}$, and $\\text{softmax}(\\cdot)$ computes a normalized version of the input matrix, where each column is normalized using the softmax function to sum to one [4]. Note that the number of output vectors is equal to the number of query vectors.",
+    "source": "Mathematical_view_of_attention_models",
+    "title": "2 Attention Mechanism for One-Dimensional Data",
+    "heading_path": [
+      "A Mathematical View of Attention Models in Deep Learning",
+      "2 Attention Mechanism for One-Dimensional Data"
+    ],
+    "page": 1,
+    "contains_image": false,
+    "contains_table": false,
+    "contains_formulas": true,
+    "section_id": "57e22861fa0d886c953a484fe53788dc2dc444e94b481d932c29097363559afd"
+  },
+  {
+    "chunk_id": 66,
+    "content": "We introduce two specific types of the attention mechanism. The different types of attention mainly differ in how the $\\mathbf{Q}, \\mathbf{K}$ and $\\mathbf{V}$ matrices are obtained, and their computations of the output given $\\mathbf{Q}, \\mathbf{K}$ and $\\mathbf{V}$ are the same.\n\nThe self-attention [4] captures the intra-correlation of a given input matrix $\\mathbf{X} = [x_1, x_2, \\dots, x_n] \\in \\mathbb{R}^{d \\times n}$. In the self-attention, we let $\\mathbf{Q} = \\mathbf{K} = \\mathbf{V} = \\mathbf{X}$. Equation 2 then becomes\n\n$$\\mathbf{O} = \\mathbf{W}_v \\mathbf{X} \\times \\text{softmax}\\left((\\mathbf{W}_k \\mathbf{X})^T \\mathbf{W}_q \\mathbf{X}\\right), \\tag{3}$$\nAn illustration of the attention operator showing matrices Q, K, and V being processed through matrix multiplication and softmax to produce output O.",
     "source": "Mathematical_view_of_attention_models",
     "title": "3 Self-Attention and Attention with Learnable Query",
     "heading_path": [
@@ -649,7 +991,22 @@
     "section_id": "fb7b9230192bd228c85d2f861fb33df7aa14c117e82fb56cb0e8bb91ce00ddea"
   },
   {
-    "chunk_id": 44,
+    "chunk_id": 67,
+    "content": "Figure 1: An illustration of the attention operator. Here, $\\times$ denotes matrix multiplication, and Softmax($\\cdot$) is the column-wise softmax operator. **$Q$**, **$K$**, and **$V$** are input matrices. A similarity score is computed between each query vector as a column of **$Q$** and each key vector as a column in **$K$**. Softmax($\\cdot$) normalizes these scores and makes them sum to 1. Multiplication between normalized scores and the matrix **$V$** yields the corresponding output vector.\n\nIn this case, the number of output vectors is determined by the the number of input vectors.\n\nThe attention with learnable query is a common variation of the self-attention, where we still have $K = V = X$. However, the query $Q \\in \\mathbb{R}^{d \\times n}$ is neither given as input nor dependent on the input. Instead, we directly learn the $Q$ matrix as trainable variables. Equation 2 thus becomes\n\n$$O = W_v X \\times \\text{softmax} \\left( (W_k X)^T Q \\right) .$$ (4)",
+    "source": "Mathematical_view_of_attention_models",
+    "title": "3 Self-Attention and Attention with Learnable Query",
+    "heading_path": [
+      "A Mathematical View of Attention Models in Deep Learning",
+      "3 Self-Attention and Attention with Learnable Query"
+    ],
+    "page": 2,
+    "contains_image": false,
+    "contains_table": false,
+    "contains_formulas": true,
+    "section_id": "fb7b9230192bd228c85d2f861fb33df7aa14c117e82fb56cb0e8bb91ce00ddea"
+  },
+  {
+    "chunk_id": 68,
     "content": "Such type of attention mechanism is commonly used in NLP [6] and graph neural networks (GNNs) [7]. It allows the networks to capture common features from all input instances during training since the query is independent of the input and is shared by all input instances. Note that since the number of output vectors is determined by the number of query vectors, the output size of the attention mechanism with learned query is fixed and is no longer flexibly related to the input.",
     "source": "Mathematical_view_of_attention_models",
     "title": "3 Self-Attention and Attention with Learnable Query",
@@ -664,8 +1021,8 @@
     "section_id": "fb7b9230192bd228c85d2f861fb33df7aa14c117e82fb56cb0e8bb91ce00ddea"
   },
   {
-    "chunk_id": 45,
-    "content": "The multi-head attention [4] consists of multiple attention operators with different similarity function determined by different groups of weight matrices. Formally, for the $i$-th head in the $M$-head attention, we compute its output $H_i$ by\n\n$$H_i = W_v^{(i)} V \\times \\text{softmax} \\left( (W_k^{(i)} K)^T W_q^{(i)} Q \\right) \\in \\mathbb{R}^{q_i \\times n}, \\tag{5}$$\n\nwhere $W_q^{(i)}, W_k^{(i)}$ and $W_v^{(i)}$ determine the similarity function $f_i$ for the $i$-th head. The final output of the multi-head attention is then computed as\n\n$$O = W_o \\begin{bmatrix} H_1 \\\\ \\vdots \\\\ H_M \\end{bmatrix} \\in \\mathbb{R}^{q \\times n}, \\tag{6}$$\n\nwhere $W_o \\in \\mathbb{R}^{q \\times (\\sum_i q_i)}$ is the learned weight matrix that projects the concatenated heads into the desired dimension. Compared to the single-head attention, the multi-head attention allows each head to attend different locations based on the similarity in different representation subspaces.\nConversion of a third-order tensor into a matrix by unfolding along mode-3.\n\nFigure 2: Conversion of a third-order tensor into a matrix by unfolding along mode-3. In this example, a $h \\times w \\times c$ tensor is unfolded into a $c \\times hw$ matrix.",
+    "chunk_id": 69,
+    "content": "The multi-head attention [4] consists of multiple attention operators with different similarity function determined by different groups of weight matrices. Formally, for the $i$-th head in the $M$-head attention, we compute its output $H_i$ by\n\n$$H_i = W_v^{(i)} V \\times \\text{softmax} \\left( (W_k^{(i)} K)^T W_q^{(i)} Q \\right) \\in \\mathbb{R}^{q_i \\times n},$$ (5)\n\nwhere $W_q^{(i)}, W_k^{(i)}$ and $W_v^{(i)}$ determine the similarity function $f_i$ for the $i$-th head. The final output of the multi-head attention is then computed as\n\n$$O = W_o \\begin{bmatrix} H_1 \\\\ \\vdots \\\\ H_M \\end{bmatrix} \\in \\mathbb{R}^{q \\times n},$$ (6)",
     "source": "Mathematical_view_of_attention_models",
     "title": "4 Multi-Head Attention",
     "heading_path": [
@@ -678,8 +1035,22 @@
     "section_id": "bcb44442b12fc19c4ac983de5a573994f7237c91dc99eb8c221cbcd864bc50eb"
   },
   {
-    "chunk_id": 46,
-    "content": "The attention mechanism was originally developed in natural language processing to process 1-D data [2,4]. It has been extended to deal with 2-D images and 3-D video data recently [5]. When deal with 2-D data, the inputs to the attention operator can be represented as 3-D tensors $\\mathcal{Q} \\in \\mathbb{R}^{h \\times w \\times c}$, $\\mathcal{K} \\in \\mathbb{R}^{h \\times w \\times c}$, and $\\mathcal{V} \\in \\mathbb{R}^{h \\times w \\times c}$, where $h$, $w$, and $c$ represent the height, width, and number of channels, respectively. Note that for notational simplicity, we have assumed the three tensors having the same size. These tensors are first unfolded into matrices along mode-3 [3], resulting in $\\boldsymbol{Q}_{(3)}, \\boldsymbol{K}_{(3)}, \\boldsymbol{V}_{(3)} \\in \\mathbb{R}^{c \\times hw}$. Columns of these matrices are the mode-3 fibers [3] of the corresponding tensors as shown in Figure 2. These matrices are used to compute output vectors as in regular attention described above. The output vectors are then folded back to a 3-D tensor $\\mathcal{O} \\in \\mathbb{R}^{h \\times w \\times q}$ by treating them as mode-3 fibers of $\\mathcal{O}$. Note that the height and width of $\\mathcal{O}$ are equal to those of $\\mathcal{Q}$. That is, we can obtain an output with larger/smaller spatial size by providing an input $\\mathcal{Q}$ of correspondingly larger/smaller spatial size. Again, we have $\\mathcal{Q} = \\mathcal{K} = \\mathcal{V}$ in self-attention. Attention models are also discussed in [1].",
+    "chunk_id": 70,
+    "content": "where $W_o \\in \\mathbb{R}^{q \\times (\\sum_i q_i)}$ is the learned weight matrix that projects the concatenated heads into the desired dimension. Compared to the single-head attention, the multi-head attention allows each head to attend different locations based on the similarity in different representation subspaces.\nConversion of a third-order tensor into a matrix by unfolding along mode-3\n\nFigure 2: Conversion of a third-order tensor into a matrix by unfolding along mode-3. In this example, a $h \\times w \\times c$ tensor is unfolded into a $c \\times hw$ matrix.",
+    "source": "Mathematical_view_of_attention_models",
+    "title": "4 Multi-Head Attention",
+    "heading_path": [
+      "4 Multi-Head Attention"
+    ],
+    "page": 3,
+    "contains_image": false,
+    "contains_table": false,
+    "contains_formulas": true,
+    "section_id": "bcb44442b12fc19c4ac983de5a573994f7237c91dc99eb8c221cbcd864bc50eb"
+  },
+  {
+    "chunk_id": 71,
+    "content": "The attention mechanism was originally developed in natural language processing to process 1-D data [2,4]. It has been extended to deal with 2-D images and 3-D video data recently [5]. When deal with 2-D data, the inputs to the attention operator can be represented as 3-D tensors $\\mathcal{Q} \\in \\mathbb{R}^{h \\times w \\times c}$, $\\mathcal{K} \\in \\mathbb{R}^{h \\times w \\times c}$, and $\\mathcal{V} \\in \\mathbb{R}^{h \\times w \\times c}$, where $h$, $w$, and $c$ represent the height, width, and number of channels, respectively. Note that for notational simplicity, we have assumed the three tensors having the same size. These tensors are first unfolded into matrices along mode-3 [3], resulting in $\\boldsymbol{Q}_{(3)},",
     "source": "Mathematical_view_of_attention_models",
     "title": "5 Attention Mechanism for High-Order Data",
     "heading_path": [
@@ -692,8 +1063,22 @@
     "section_id": "8654c631e63fa73da943fba5b45eedf3287bd11f1d0e90017af2c2e8abd03794"
   },
   {
-    "chunk_id": 47,
-    "content": "Spatial permutation invariance and equivariance are two properties required by different tasks. In this section, we first give formal definitions to the spatial permutation and the two properties and then individually analyze the property of the previously introduced attention operators.\n\n**Definition 1.** *Consider an image or feature map $\\boldsymbol{X} \\in \\mathbb{R}^{d \\times n}$, where $n$ denotes the spatial dimension and $d$ denotes the number of features. Let $\\pi$ denotes a permutation of $n$ elements. We call a transformation $\\mathcal{T}_{\\pi} : \\mathbb{R}^{d \\times n} \\rightarrow \\mathbb{R}^{d \\times n}$ a spatial permutation if $\\mathcal{T}_{\\pi}(\\boldsymbol{X}) = \\boldsymbol{X} \\boldsymbol{P}_{\\pi}$, where $\\boldsymbol{P}_{\\pi} \\in \\mathbb{R}^{n \\times n}$ denotes the permutation matrix associated with $\\pi$, defined as $\\boldsymbol{P}_{\\pi} = [\\boldsymbol{e}_{\\pi(1)}, \\boldsymbol{e}_{\\pi(2)}, \\cdots, \\boldsymbol{e}_{\\pi(n)}]$, and $\\boldsymbol{e}_{i}$ is a one-hot vector of length $n$ with its $i$-th element being 1.*",
+    "chunk_id": 72,
+    "content": "\\boldsymbol{K}_{(3)}, \\boldsymbol{V}_{(3)} \\in \\mathbb{R}^{c \\times hw}$. Columns of these matrices are the mode-3 fibers [3] of the corresponding tensors as shown in Figure 2. These matrices are used to compute output vectors as in regular attention described above. The output vectors are then folded back to a 3-D tensor $\\mathcal{O} \\in \\mathbb{R}^{h \\times w \\times q}$ by treating them as mode-3 fibers of $\\mathcal{O}$. Note that the height and width of $\\mathcal{O}$ are equal to those of $\\mathcal{Q}$. That is, we can obtain an output with larger/smaller spatial size by providing an input $\\mathcal{Q}$ of correspondingly larger/smaller spatial size. Again, we have $\\mathcal{Q} = \\mathcal{K} = \\mathcal{V}$ in\n\nself-attention. Attention models are also discussed in [1].",
+    "source": "Mathematical_view_of_attention_models",
+    "title": "5 Attention Mechanism for High-Order Data",
+    "heading_path": [
+      "5 Attention Mechanism for High-Order Data"
+    ],
+    "page": 3,
+    "contains_image": false,
+    "contains_table": false,
+    "contains_formulas": true,
+    "section_id": "8654c631e63fa73da943fba5b45eedf3287bd11f1d0e90017af2c2e8abd03794"
+  },
+  {
+    "chunk_id": 73,
+    "content": "Spatial permutation invariance and equivariance are two properties required by different tasks. In this section, we first give formal definitions to the spatial permutation and the two properties and then individually analyze the property of the previously introduced attention operators.",
     "source": "Mathematical_view_of_attention_models",
     "title": "6 Invariance and Equivariance in Attention Mechanism",
     "heading_path": [
@@ -706,8 +1091,8 @@
     "section_id": "1d9418e9c4bc352c146db6b69496d7bb2b3eb4b5c298c6a259bab6ef32d93a53"
   },
   {
-    "chunk_id": 48,
-    "content": "**Definition 2.** *We call an operator $A : \\mathbb{R}^{d \\times n} \\rightarrow \\mathbb{R}^{d \\times n}$ to be spatially permutation equivariant if $\\mathcal{T}_{\\pi}(A(\\boldsymbol{X})) = A(\\mathcal{T}_{\\pi}(\\boldsymbol{X}))$ for any $\\boldsymbol{X}$ and any spatial permutation $\\mathcal{T}_{\\pi}$. In addition, an operator $A : \\mathbb{R}^{d \\times n} \\rightarrow \\mathbb{R}^{d \\times n}$ is spatially permutation invariant if $A(\\mathcal{T}_{\\pi}(\\boldsymbol{X})) = A(\\boldsymbol{X})$ for any $\\boldsymbol{X}$ and any spatial permutation $\\mathcal{T}_{\\pi}$.*\n\nIn the image domain, the (spatial) permutation invariance is essential when we perform the image-level prediction such as image classification, where we usually expect the prediction to remain the same as the input image is rotated or flipped. On the other hand, the permutation equivariance is essential in the pixel-level prediction such as image segmentation or style translation where we expect the prediction to rotate or flip correspondingly to the rotation or flipping of the input image. We now show the corresponding property of self-attention and attention with learned query. For simplicity, we only consider the single-head attention.\n\n**Theorem 1.** *A self-attention operator $A_{s}$ is permutation equivariant while an attention operator with learned query $A_{Q}$ is permutation invariant. In particular, letting $\\boldsymbol{X}$ denote the input matrix and $\\mathcal{T}$ denotes any spatial permutation, we have*\n\n$$ A_{s}(\\mathcal{T}_{\\pi}(\\boldsymbol{X})) = \\mathcal{T}_{\\pi}(A_{s}(\\boldsymbol{X})), $$\n\nand",
+    "chunk_id": 74,
+    "content": "**Definition 1.** *Consider an image or feature map $\\boldsymbol{X} \\in \\mathbb{R}^{d \\times n}$, where $n$ denotes the spatial dimension and $d$ denotes the number of features. Let $\\pi$ denotes a permutation of $n$ elements. We call a transformation $\\mathcal{T}_{\\pi} : \\mathbb{R}^{d \\times n} \\rightarrow \\mathbb{R}^{d \\times n}$ a spatial permutation if $\\mathcal{T}_{\\pi}(\\boldsymbol{X}) = \\boldsymbol{X} \\boldsymbol{P}_{\\pi}$, where $\\boldsymbol{P}_{\\pi} \\in \\mathbb{R}^{n \\times n}$ denotes the permutation matrix associated with $\\pi$, defined as $\\boldsymbol{P}_{\\pi} = [\\boldsymbol{e}_{\\pi(1)}, \\boldsymbol{e}_{\\pi(2)}, \\cdots, \\boldsymbol{e}_{\\pi(n)}]$, and $\\boldsymbol{e}_i$ is a one-hot vector of length $n$ with its $i$-th element being 1.*",
     "source": "Mathematical_view_of_attention_models",
     "title": "6 Invariance and Equivariance in Attention Mechanism",
     "heading_path": [
@@ -720,8 +1105,36 @@
     "section_id": "1d9418e9c4bc352c146db6b69496d7bb2b3eb4b5c298c6a259bab6ef32d93a53"
   },
   {
-    "chunk_id": 49,
-    "content": "$$ A_{Q}(\\mathcal{T}_{\\pi}(\\boldsymbol{X})) = A_{Q}(\\boldsymbol{X}). $$\n*Proof.* When applying a spatial permutation $\\mathcal{T}_\\pi$ to the input $\\boldsymbol{X}$ of a self-attention operator $A_s$, we have",
+    "chunk_id": 75,
+    "content": "**Definition 2.** *We call an operator $A : \\mathbb{R}^{d \\times n} \\rightarrow \\mathbb{R}^{d \\times n}$ to be spatially permutation equivariant if $\\mathcal{T}_{\\pi}(A(\\boldsymbol{X})) = A(\\mathcal{T}_{\\pi}(\\boldsymbol{X}))$ for any $\\boldsymbol{X}$ and any spatial permutation $\\mathcal{T}_{\\pi}$. In addition, an operator $A : \\mathbb{R}^{d \\times n} \\rightarrow \\mathbb{R}^{d \\times n}$ is spatially permutation invariant if $A(\\mathcal{T}_{\\pi}(\\boldsymbol{X})) = A(\\boldsymbol{X})$ for any $\\boldsymbol{X}$ and any spatial permutation $\\mathcal{T}_{\\pi}$.*",
+    "source": "Mathematical_view_of_attention_models",
+    "title": "6 Invariance and Equivariance in Attention Mechanism",
+    "heading_path": [
+      "6 Invariance and Equivariance in Attention Mechanism"
+    ],
+    "page": 3,
+    "contains_image": false,
+    "contains_table": false,
+    "contains_formulas": true,
+    "section_id": "1d9418e9c4bc352c146db6b69496d7bb2b3eb4b5c298c6a259bab6ef32d93a53"
+  },
+  {
+    "chunk_id": 76,
+    "content": "In the image domain, the (spatial) permutation invariance is essential when we perform the image-level prediction such as image classification, where we usually expect the prediction to remain the same as the input image is rotated or flipped. On the other hand, the permutation equivariance is essential in the pixel-level prediction such as image segmentation or style translation where we expect the prediction to rotate or flip correspondingly to the rotation or flipping of the input image. We now show the corresponding property of self-attention and attention with learned query. For simplicity, we only consider the single-head attention.\n\n**Theorem 1.** *A self-attention operator $A_s$ is permutation equivariant while an attention operator with learned query $A_Q$ is permutation invariant. In particular, letting $\\boldsymbol{X}$ denote the input matrix and $\\mathcal{T}$ denotes any spatial permutation, we have*\n\n$$ A_s(\\mathcal{T}_{\\pi}(\\boldsymbol{X})) = \\mathcal{T}_{\\pi}(A_s(\\boldsymbol{X})), $$\n\nand",
+    "source": "Mathematical_view_of_attention_models",
+    "title": "6 Invariance and Equivariance in Attention Mechanism",
+    "heading_path": [
+      "6 Invariance and Equivariance in Attention Mechanism"
+    ],
+    "page": 3,
+    "contains_image": false,
+    "contains_table": false,
+    "contains_formulas": true,
+    "section_id": "1d9418e9c4bc352c146db6b69496d7bb2b3eb4b5c298c6a259bab6ef32d93a53"
+  },
+  {
+    "chunk_id": 77,
+    "content": "$$ A_Q(\\mathcal{T}_{\\pi}(\\boldsymbol{X})) = A_Q(\\boldsymbol{X}). $$\n*Proof.* When applying a spatial permutation $\\mathcal{T}_\\pi$ to the input $\\boldsymbol{X}$ of a self-attention operator $A_s$, we have",
     "source": "Mathematical_view_of_attention_models",
     "title": "6 Invariance and Equivariance in Attention Mechanism",
     "heading_path": [
@@ -734,8 +1147,8 @@
     "section_id": "1d9418e9c4bc352c146db6b69496d7bb2b3eb4b5c298c6a259bab6ef32d93a53"
   },
   {
-    "chunk_id": 50,
-    "content": "$$\n\\begin{aligned}\nA_s(\\mathcal{T}_\\pi(\\boldsymbol{X})) &= \\boldsymbol{W}_v \\mathcal{T}_\\pi(\\boldsymbol{X}) \\cdot \\text{softmax} \\left( (\\boldsymbol{W}_k \\mathcal{T}_\\pi(\\boldsymbol{X}))^T \\cdot \\boldsymbol{W}_q \\mathcal{T}_\\pi(\\boldsymbol{X}) \\right) \\\\\n&= \\boldsymbol{W}_v \\boldsymbol{X} P_\\pi \\cdot \\text{softmax} \\left( (\\boldsymbol{W}_k \\boldsymbol{X} P_\\pi)^T \\cdot \\boldsymbol{W}_q \\boldsymbol{X} P_\\pi \\right) \\\\\n&= \\boldsymbol{W}_v \\boldsymbol{X} P_\\pi \\cdot \\text{softmax} \\left( P_\\pi^T (\\boldsymbol{W}_k \\boldsymbol{X})^T \\cdot \\boldsymbol{W}_q \\boldsymbol{X} P_\\pi \\right) \\\\\n&= \\boldsymbol{W}_v \\boldsymbol{X} (P_\\pi P_\\pi^T) \\cdot \\text{softmax} \\left( (\\boldsymbol{W}_k \\boldsymbol{X})^T \\cdot \\boldsymbol{W}_q \\boldsymbol{X} \\right) P_\\pi \\\\\n&= \\boldsymbol{W}_v \\boldsymbol{X} \\cdot \\text{softmax} \\left( (\\boldsymbol{W}_k \\boldsymbol{X})^T \\cdot \\boldsymbol{W}_q \\boldsymbol{X} \\right) P_\\pi \\\\\n&= \\mathcal{T}_\\pi(A_s(\\boldsymbol{X})).\n\\end{aligned} \\tag{7}\n$$\n\nNote that $P_\\pi^T P_\\pi = I$ since $P_\\pi$ is an orthogonal matrix. And it is easy to verify that",
+    "chunk_id": 78,
+    "content": "$$\n\\begin{aligned}\nA_s(\\mathcal{T}_\\pi(\\boldsymbol{X})) &= \\boldsymbol{W}_v \\mathcal{T}_\\pi(\\boldsymbol{X}) \\cdot \\text{softmax} \\left( (\\boldsymbol{W}_k \\mathcal{T}_\\pi(\\boldsymbol{X}))^T \\cdot \\boldsymbol{W}_q \\mathcal{T}_\\pi(\\boldsymbol{X}) \\right) \\\\\n&= \\boldsymbol{W}_v \\boldsymbol{X} \\boldsymbol{P}_\\pi \\cdot \\text{softmax} \\left( (\\boldsymbol{W}_k \\boldsymbol{X} \\boldsymbol{P}_\\pi)^T \\cdot \\boldsymbol{W}_q \\boldsymbol{X} \\boldsymbol{P}_\\pi \\right) \\\\\n&= \\boldsymbol{W}_v \\boldsymbol{X} \\boldsymbol{P}_\\pi \\cdot \\text{softmax} \\left( \\boldsymbol{P}_\\pi^T (\\boldsymbol{W}_k \\boldsymbol{X})^T \\cdot \\boldsymbol{W}_q \\boldsymbol{X} \\boldsymbol{P}_\\pi \\right) \\\\",
     "source": "Mathematical_view_of_attention_models",
     "title": "6 Invariance and Equivariance in Attention Mechanism",
     "heading_path": [
@@ -748,8 +1161,8 @@
     "section_id": "1d9418e9c4bc352c146db6b69496d7bb2b3eb4b5c298c6a259bab6ef32d93a53"
   },
   {
-    "chunk_id": 51,
-    "content": "$$\n\\text{softmax}(P_\\pi^T M P_\\pi) = P_\\pi^T \\text{softmax}(M) P_\\pi\n$$\n\nfor any matrix $M$. By showing $A_s(\\mathcal{T}_\\pi(\\boldsymbol{X})) = \\mathcal{T}_\\pi(A_s(\\boldsymbol{X}))$ we have shown that $A_s$ is spatial permutation equivariant according to Definition 2.\n\nSimilarly, when applying $\\mathcal{T}_\\pi$ to the input of an attention operator $A_Q$ with a learned query $\\boldsymbol{Q}$, which is independent of the input $\\boldsymbol{X}$, we have\n\n$$\n\\begin{aligned}\nA_Q(\\mathcal{T}_\\pi(\\boldsymbol{X})) &= \\boldsymbol{W}_v \\mathcal{T}_\\pi(\\boldsymbol{X}) \\cdot \\text{softmax} \\left( (\\boldsymbol{W}_k \\mathcal{T}_\\pi(\\boldsymbol{X}))^T \\cdot \\boldsymbol{Q} \\right) \\\\\n&= \\boldsymbol{W}_v \\boldsymbol{X} (P_\\pi P_\\pi^T) \\cdot \\text{softmax} \\left( (\\boldsymbol{W}_k \\boldsymbol{X})^T \\cdot \\boldsymbol{Q} \\right) \\\\\n&= \\boldsymbol{W}_v \\boldsymbol{X} \\cdot \\text{softmax} \\left( (\\boldsymbol{W}_k \\boldsymbol{X})^T \\cdot \\boldsymbol{Q} \\right) \\\\\n&= A_Q(\\boldsymbol{X}).\n\\end{aligned} \\tag{8}\n$$\n\nSince $A_Q(\\mathcal{T}_\\pi(\\boldsymbol{X})) = A_Q(\\boldsymbol{X})$, we have shown that $A_Q$ is spatial permutation invariant according to Definition 2. \u25a1",
+    "chunk_id": 79,
+    "content": "&= \\boldsymbol{W}_v \\boldsymbol{X} (\\boldsymbol{P}_\\pi \\boldsymbol{P}_\\pi^T) \\cdot \\text{softmax} \\left( (\\boldsymbol{W}_k \\boldsymbol{X})^T \\cdot \\boldsymbol{W}_q \\boldsymbol{X} \\right) \\boldsymbol{P}_\\pi \\\\\n&= \\boldsymbol{W}_v \\boldsymbol{X} \\cdot \\text{softmax} \\left( (\\boldsymbol{W}_k \\boldsymbol{X})^T \\cdot \\boldsymbol{W}_q \\boldsymbol{X} \\right) \\boldsymbol{P}_\\pi \\\\\n&= \\mathcal{T}_\\pi(A_s(\\boldsymbol{X})).\n\\end{aligned} \\eqno(7)\n$$\n\nNote that $\\boldsymbol{P}_\\pi^T \\boldsymbol{P}_\\pi = \\boldsymbol{I}$ since $\\boldsymbol{P}_\\pi$ is an orthogonal matrix. And it is easy to verify that",
     "source": "Mathematical_view_of_attention_models",
     "title": "6 Invariance and Equivariance in Attention Mechanism",
     "heading_path": [
@@ -762,8 +1175,8 @@
     "section_id": "1d9418e9c4bc352c146db6b69496d7bb2b3eb4b5c298c6a259bab6ef32d93a53"
   },
   {
-    "chunk_id": 52,
-    "content": "**Property of Convolutions:** It is easy to verify that a convolution with a kernel size of 1 is equivariant to spatial permutations since the output values of a pixel only depends on the pixel itself. However, convolutions with kernel sizes larger than 1 is neither spatially permutation invariant nor equivariant, because the output values of a pixel depends on the pixel and its neighbors with fixed order. When the neighbors or the order of neighbors are changed during a permutation, the output value is consequently changed. As equivariance or invariance are desired in different tasks, certain approaches are used to help the convolutions learn to be equivariance or invariance. A common approach is to perform the data augmentation during training. An exception exists for the translation operation. In particular, convolutions with kernel sizes larger than 1 are equivariant to translations.",
+    "chunk_id": 80,
+    "content": "$$ \\text{softmax}(\\boldsymbol{P}_\\pi^T \\boldsymbol{M} \\boldsymbol{P}_\\pi) = \\boldsymbol{P}_\\pi^T \\text{softmax}(\\boldsymbol{M}) \\boldsymbol{P}_\\pi $$\n\nfor any matrix $\\boldsymbol{M}$. By showing $A_s(\\mathcal{T}_\\pi(\\boldsymbol{X})) = \\mathcal{T}_\\pi(A_s(\\boldsymbol{X}))$ we have shown that $A_s$ is spatial permutation equivariant according to Definition 2.\n\nSimilarly, when applying $\\mathcal{T}_\\pi$ to the input of an attention operator $A_Q$ with a learned query $\\boldsymbol{Q}$, which is independent of the input $\\boldsymbol{X}$, we have",
     "source": "Mathematical_view_of_attention_models",
     "title": "6 Invariance and Equivariance in Attention Mechanism",
     "heading_path": [
@@ -776,31 +1189,61 @@
     "section_id": "1d9418e9c4bc352c146db6b69496d7bb2b3eb4b5c298c6a259bab6ef32d93a53"
   },
   {
-    "chunk_id": 53,
+    "chunk_id": 81,
+    "content": "$$\n\\begin{aligned}\nA_Q(\\mathcal{T}_\\pi(\\boldsymbol{X})) &= \\boldsymbol{W}_v \\mathcal{T}_\\pi(\\boldsymbol{X}) \\cdot \\text{softmax} \\left( (\\boldsymbol{W}_k \\mathcal{T}_\\pi(\\boldsymbol{X}))^T \\cdot \\boldsymbol{Q} \\right) \\\\\n&= \\boldsymbol{W}_v \\boldsymbol{X} (\\boldsymbol{P}_\\pi \\boldsymbol{P}_\\pi^T) \\cdot \\text{softmax} \\left( (\\boldsymbol{W}_k \\boldsymbol{X})^T \\cdot \\boldsymbol{Q} \\right) \\\\\n&= \\boldsymbol{W}_v \\boldsymbol{X} \\cdot \\text{softmax} \\left( (\\boldsymbol{W}_k \\boldsymbol{X})^T \\cdot \\boldsymbol{Q} \\right) \\\\\n&= A_Q(\\boldsymbol{X}).\n\\end{aligned} \\eqno(8)\n$$",
+    "source": "Mathematical_view_of_attention_models",
+    "title": "6 Invariance and Equivariance in Attention Mechanism",
+    "heading_path": [
+      "6 Invariance and Equivariance in Attention Mechanism"
+    ],
+    "page": 4,
+    "contains_image": false,
+    "contains_table": false,
+    "contains_formulas": true,
+    "section_id": "1d9418e9c4bc352c146db6b69496d7bb2b3eb4b5c298c6a259bab6ef32d93a53"
+  },
+  {
+    "chunk_id": 82,
+    "content": "Since $A_Q(\\mathcal{T}_\\pi(\\boldsymbol{X})) = A_Q(\\boldsymbol{X})$, we have shown that $A_Q$ is spatial permutation invariant according to Definition 2. $\\square$\n\n**Property of Convolutions:** It is easy to verify that a convolution with a kernel size of 1 is equivariant to spatial permutations since the output values of a pixel only depends on the pixel itself. However, convolutions with kernel sizes larger than 1 is neither spatially permutation invariant nor equivariant, because the output values of a pixel depends on the pixel and its neighbors with fixed order. When the neighbors or the order of neighbors are changed during a permutation, the output value is consequently changed. As equivariance or invariance are desired in different tasks, certain approaches are used to help the convolutions learn to be equivariance or invariance. A common approach is to perform the data augmentation during training. An exception exists for the translation operation. In particular, convolutions with kernel sizes larger than 1 are equivariant to translations.",
+    "source": "Mathematical_view_of_attention_models",
+    "title": "6 Invariance and Equivariance in Attention Mechanism",
+    "heading_path": [
+      "6 Invariance and Equivariance in Attention Mechanism"
+    ],
+    "page": 4,
+    "contains_image": false,
+    "contains_table": false,
+    "contains_formulas": true,
+    "section_id": "1d9418e9c4bc352c146db6b69496d7bb2b3eb4b5c298c6a259bab6ef32d93a53"
+  },
+  {
+    "chunk_id": 83,
     "content": "This work was supported in part by National Science Foundation grants IIS-1908220, IIS-1908198, IIS-1908166, DBI-1147134, DBI-1922969, DBI-1661289, CHE-1738305, National Institutes of Health grant 1R21NS102828, and Defense Advanced Research Projects Agency grant N66001-17-2-4031.",
     "source": "Mathematical_view_of_attention_models",
     "title": "Acknowledgements",
     "heading_path": [
+      "6 Invariance and Equivariance in Attention Mechanism",
       "Acknowledgements"
     ],
     "page": 4,
     "contains_image": false,
     "contains_table": false,
     "contains_formulas": false,
-    "section_id": "ecceb55531411b4cdaaccb2ef8ab752bf17e26492649ed9a157dac30e2e46790"
+    "section_id": "b3d8fd3b398c2a7d79a15f6c0acfc68e00e6d237113c2db93f69f10ec30623fc"
   },
   {
-    "chunk_id": 54,
+    "chunk_id": 84,
     "content": "[1] Charu C Aggarwal. *Neural networks and deep learning.* Springer, 2018.\n\n[2] Dzmitry Bahdanau, Kyunghyun Cho, and Yoshua Bengio. Neural machine translation by jointly learning to align and translate. *International Conference on Learning Representations*, 2015.\n\n[3] Tamara G Kolda and Brett W Bader. Tensor decompositions and applications. *SIAM review*, 51(3):455\u2013500, 2009.\n\n[4] Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N Gomez, \u0141ukasz Kaiser, and Illia Polosukhin. Attention is all you need. In *Advances in Neural Information Processing Systems*, pages 5998\u20136008, 2017.\n[5] Xiaolong Wang, Ross Girshick, Abhinav Gupta, and Kaiming He. Non-local neural networks. In The IEEE Conference on Computer Vision and Pattern Recognition (CVPR), volume 1, page 4, 2018.\n\n[6] Zichao Yang, Diyi Yang, Chris Dyer, Xiaodong He, Alex Smola and Eduard Hovy. Hierarchical attention networks for document classification. In Conference of the North American chapter of the Association for Computational Linguistics: Human Language Technologies, page 1480\u2013 1489, 2016.\n\n[7] Yujia Li, Daniel Tarlow, Marc Brockschmidt, and Richard S. Zemel. Gated Graph Sequence Neural Networks. In 4th International Conference on Learning Representations (ICLR), 2016.\n\n5",
     "source": "Mathematical_view_of_attention_models",
     "title": "References",
     "heading_path": [
+      "6 Invariance and Equivariance in Attention Mechanism",
       "References"
     ],
     "page": 4,
     "contains_image": false,
     "contains_table": false,
     "contains_formulas": false,
-    "section_id": "1fc934e2d715443d463ffdda879cacb6e7e85dd1b07bbb514eb7e7108f82b021"
+    "section_id": "1f26a261e906f879908e854f957451cf512e9cb902ff26fef6be5f700f04dfdc"
   }
 ]
