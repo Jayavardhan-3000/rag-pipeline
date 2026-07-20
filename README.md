@@ -1,33 +1,17 @@
-```{=html}
 <p align="center">
-```
-`<img src="architecture/architecture.png" alt="LOTUS Engine Architecture" width="100%">`{=html}
-```{=html}
+  <img src="architecture/architecture.png" alt="LOTUS Engine Architecture" width="100%">
 </p>
-```
-```{=html}
-<h1 align="center">
-```
- LOTUS Engine
-```{=html}
-</h1>
-```
-```{=html}
+
+<h1 align="center">LOTUS Engine</h1>
+
 <p align="center">
-```
-`<b>`{=html}A Structure-Aware Hybrid Retrieval Engine for
-Retrieval-Augmented Generation (RAG)`</b>`{=html}
-```{=html}
+  <strong>A Structure-Aware Hybrid Retrieval Engine for Retrieval-Augmented Generation (RAG)</strong>
 </p>
-```
-```{=html}
+
 <p align="center">
-```
-Hybrid Retrieval • Structure-Aware Chunking • Cross-Encoder Reranking •
-Artifact Retrieval
-```{=html}
+  Hybrid Retrieval • Structure-Aware Chunking • Cross-Encoder Reranking • Artifact Retrieval
 </p>
-```
+
 
 ------------------------------------------------------------------------
 
