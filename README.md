@@ -271,14 +271,16 @@ LOTUS/
 The reranking stage substantially improves retrieval quality while
 maintaining a modular retrieval architecture.
 
+------------------------------------------------------------------------
+
 ## Retrieval Latency
 
-  Stage                          Mean
-  ------------------------- ---------
-  Query Analysis               0.2 ms
-  Dense + BM25 Retrieval      22.6 ms
-  Reciprocal Rank Fusion       0.1 ms
-  Cross-Encoder Reranking     1383 ms
+| Stage | Mean Latency |
+| :--- | ---: |
+| Query Analysis | 0.2 ms |
+| Dense + BM25 Retrieval | 22.6 ms |
+| Reciprocal Rank Fusion | 0.1 ms |
+| Cross-Encoder Reranking | 1383 ms |
 
 The cross-encoder reranker is the primary latency bottleneck, but also
 contributes the largest improvement in retrieval accuracy.
