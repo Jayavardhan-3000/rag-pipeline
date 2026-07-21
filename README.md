@@ -8,7 +8,6 @@
   Hybrid Retrieval • Structure-Aware Chunking • Cross-Encoder Reranking • Artifact Retrieval
 </p>
 
-
 ------------------------------------------------------------------------
 
 ## Overview
