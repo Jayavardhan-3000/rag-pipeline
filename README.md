@@ -26,6 +26,7 @@ produce high-quality context for Large Language Models.
 
 ------------------------------------------------------------------------
 
+
 # Features
 
 -   Structure-aware document parsing
