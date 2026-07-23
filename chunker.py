@@ -70,7 +70,7 @@ def chunker(data: dict[str, list[ParsedPage]]) -> list[Section]:
                         contains_table,
                         contains_formulas
                     )
-                    level = len(matched.group(1))
+                   level = len(matched.group(1))
                     title = matched.group(2).strip()
                     while len(heading_path) >= level:
                         heading_path.pop()
